@@ -1,11 +1,14 @@
 import requests
 import time
+from datetime import date
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
-# PATH = "/Users/patrickfortaleza/Desktop/driver/geckodriver"
+url = "https://www.cnn.com/"
 driver = webdriver.Firefox()
-driver.get("https://www.cnn.com/")
+driver.get(url)
+
+today = date.today().isoformat()
 
 PAUSE_TIME = 1.5
 
@@ -17,32 +20,31 @@ page_soup = BeautifulSoup(innerHTML, "html.parser")
 topSection = page_soup.find("section", {"id": "homepage1-zone-1"})
 newsColumns = topSection.find_all("div", {"class": "column"})
 
+articlesList = []
 for column in newsColumns:
     articles = column.find_all("article")
-    for article in articles:
-        h3 = article.find("h3", {"class": "cd__headline"})
-        headline = h3.find("a")
-        link = headline["href"]
-        text = headline.get_text()
-        print(f"link: {link}")
-        print(f"text: {text}")
+    for article in articles[:5]:
+        try:
+            h3 = article.find("h3", {"class": "cd__headline"})
+            headline = h3.find("a")
+            link = headline["href"]
+            text = headline.get_text()
 
+            article_ = {
+                "site": url,
+                "headline": text,
+                "article_url": link,
+                "date": today
+            }
 
-print(newsColumns)
+            articlesList.append(article_)
+        except Exception as e:
+            print(f"error retrieving data: {e}")
 
+print(articlesList)
 # Closes tab
 driver.close()
 
-# # Closes entire browser
-# driver.quit()
-
-# page = requests.get("https://www.cnn.com/", timeout=None)
-# pageHTML = page.content
-
-# soup = BeautifulSoup(pageHTML, 'html.parser')
-
-# topSection = soup.find_all("section")
-# print(topSection)
 # urls = [
 #   "https://www.usatoday.com/",
 #   "https://www.foxnews.com/",
