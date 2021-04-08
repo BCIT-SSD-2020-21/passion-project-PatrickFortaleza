@@ -3,17 +3,45 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import os
-username = os.environ.get("DB_USERNAME")
-password = os.environ.get("DB_PASSWORD")
-mongo_uri = f"mongodb+srv://{username}:{password}@pynews.nzfri.mongodb.net/PyNews?retryWrites=true&w=majority"
-print(mongo_uri)
 
 mongodb_client = pymongo.MongoClient
 pymongo_errors = pymongo.errors.ServerSelectionTimeoutError
 
-try:
-  client = mongodb_client(mongo_uri)
-  client.server_info()
-  print("Established a connection to DB.")
-except pymongo_errors as err:
-  print(err)
+
+class DbContext():
+  def __init__(self):
+    self.__db_user = os.environ.get("DB_USERNAME")
+    self.__db_password = os.environ.get("DB_PASSWORD")
+    self.__mongo_uri = f"mongodb+srv://{self.__db_user}:{self.__db_password}@pynews.nzfri.mongodb.net/PyNews?retryWrites=true&w=majority"
+    self.__context = None
+
+#----------------------------------------
+# Getter setter for attributes
+#----------------------------------------
+  @property
+  def mongo_uri(self):
+    return self.__mongo_uri
+
+  @property
+  def context(self):
+    return self.__context
+
+  @context.setter
+  def context(self, contextObject):
+    self.__context = contextObject
+  
+  def connect_to_db(self):
+    try:
+      print(self.mongo_uri)
+      client = mongodb_client(self.mongo_uri)
+      client.server_info()
+      self.context = client
+      print("Successfully established a connection to DB")
+    except pymongo_errors as err:
+      print(err)
+
+
+Context = DbContext()
+Context.connect_to_db()
+
+  
