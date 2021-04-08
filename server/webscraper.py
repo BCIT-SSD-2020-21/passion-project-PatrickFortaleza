@@ -1,4 +1,5 @@
 from dbconnection.connection import DbContext
+from scraper.scrapeNews import Scrapeth
 
 # Establish connection
 Context = DbContext
@@ -7,6 +8,15 @@ database = MongoDbContext.PyNews
 
 # Collections
 articles = database.articles
+
+Scrape = Scrapeth
+articlesList = Scrape().articles
+
+for articleItem in articlesList:
+    result = articles.insert_one(articleItem)
+    print(result)
+
+# Insert Articles
 
 
 # ======================================
