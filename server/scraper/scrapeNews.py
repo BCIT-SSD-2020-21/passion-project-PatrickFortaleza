@@ -2,10 +2,27 @@ import requests
 import time
 from datetime import date
 from bs4 import BeautifulSoup
+# ===================================
+# FOR DEPLOYING, UNCOMMENT LINE(s) BELOW
+from pyvirtualdisplay import Display
+from selenium.webdriver import FirefoxOptions
+# ===================================
+
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+
+# ===================================
+# FOR DEPLOYING, UNCOMMENT LINE(s) BELOW
+opts = FirefoxOptions()
+opts.add_argument("--headless")
+driver = webdriver.Firefox(firefox_options=opts)
+display = Display(visible=0, size=(800, 600))
+# ===================================
+
+# FOR DEVELOPMENT: (LOCAL)
+# driver = webdriver.Firefox()
 
 # urls = [
 #   "https://www.usatoday.com/",
@@ -18,17 +35,20 @@ class Scrapeth():
     def __init__(self):
         self.__today = date.today().isoformat()
         self.__articles = []
-        self.__driver = webdriver.Firefox()
 
         def scrape_cnn():
             try:
+                # ===================================
+                # FOR DEPLOYING, UNCOMMENT LINE BELOW
+                display.start()
+
                 url = "https://www.cnn.com/"
-                self.__driver.get(url)
+                driver.get(url)
                 try:
-                    WebDriverWait(self.__driver, 10).until(EC.presence_of_element_located(
+                    WebDriverWait(driver, 10).until(EC.presence_of_element_located(
                         (By.XPATH, "//section[@id='homepage1-zone-1']")))
                 finally:
-                    innerHTML = self.__driver.execute_script(
+                    innerHTML = driver.execute_script(
                         "window.scrollTo(0, document.body.scrollHeight-10000);var lenOfPage=document.body.scrollHeight;return document.body.innerHTML;")
 
                     page_soup = BeautifulSoup(innerHTML, "html.parser")
@@ -60,12 +80,19 @@ class Scrapeth():
                                 print(f"error retrieving data: {e}")
 
                 # Closes tab
-                self.__driver.close()
+                driver.close()
+                # ===================================
+                # FOR DEPLOYING, UNCOMMENT LINE BELOW
+                display.stop()
 
                 self.__articles = articlesList
 
             except Exception as e:
-                self.__driver.close()
+                driver.close()
+                # ===================================
+                # FOR DEPLOYING, UNCOMMENT LINE BELOW
+                display.stop()
+
                 print(f"error retrieving data: {e}")
 
         scrape_cnn()
