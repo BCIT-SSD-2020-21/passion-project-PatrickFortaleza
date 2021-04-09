@@ -11,10 +11,12 @@ articles = database.articles
 
 Scrape = Scrapeth
 articlesList = Scrape().articles
+print(articlesList)
 
-for articleItem in articlesList:
-    result = articles.insert_one(articleItem)
-    print(result)
+
+# for articleItem in articlesList:
+#     result = articles.insert_one(articleItem)
+#     print(result)
 
 # Insert Articles
 
