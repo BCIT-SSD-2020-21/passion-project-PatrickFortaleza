@@ -1,5 +1,6 @@
 from dbconnection.connection import DbContext
 from scraper.scrapeNews import Scrapeth
+from datetime import date
 
 # Establish connection
 Context = DbContext
@@ -8,17 +9,28 @@ database = MongoDbContext.PyNews
 
 # Collections
 articles = database.articles
+sites = database.sites
+newsdata = database.newsdata
 
 Scrape = Scrapeth
 articlesList = Scrape().articles
-print(articlesList)
 
+existingNewsData = newsdata.find_one({"date": date.today().isoformat()})
 
-# for articleItem in articlesList:
-#     result = articles.insert_one(articleItem)
-#     print(result)
+if existingNewsData is None:
 
-# Insert Articles
+    newsData = {
+        "date": date.today().isoformat(),
+        "articles": []
+    }
+
+    for articleItem in articlesList:
+        articleResult = articles.insert_one(articleItem)
+        articleObjectId = articleResult.inserted_id
+        newsData["articles"].append(articleObjectId)
+
+    res = newsdata.insert_one(newsData)
+    print(newsData)
 
 
 # ======================================

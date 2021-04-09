@@ -7,8 +7,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-PAUSE_TIME = 1.5
-
 # urls = [
 #   "https://www.usatoday.com/",
 #   "https://www.foxnews.com/",
@@ -30,7 +28,6 @@ class Scrapeth():
                     WebDriverWait(self.__driver, 10).until(EC.presence_of_element_located(
                         (By.XPATH, "//section[@id='homepage1-zone-1']")))
                 finally:
-                    # time.sleep(PAUSE_TIME)
                     innerHTML = self.__driver.execute_script(
                         "window.scrollTo(0, document.body.scrollHeight-10000);var lenOfPage=document.body.scrollHeight;return document.body.innerHTML;")
 
@@ -43,7 +40,7 @@ class Scrapeth():
                     articlesList = []
                     for column in newsColumns[:3]:
                         articles = column.find_all("article")
-                        for article in articles[:5]:
+                        for article in articles[:1]:
                             try:
                                 h3 = article.find(
                                     "h3", {"class": "cd__headline"})
@@ -52,7 +49,7 @@ class Scrapeth():
                                 text = headline.get_text()
 
                                 article_ = {
-                                    "site": url,
+                                    "site": "6070628dbcdb9a31a261bb97",  # Hardcoded ObjectID
                                     "headline": text,
                                     "article_url": link,
                                     "date": self.__today
