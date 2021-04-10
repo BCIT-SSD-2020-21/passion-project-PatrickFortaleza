@@ -4,8 +4,9 @@ from datetime import date
 from bs4 import BeautifulSoup
 # ===================================
 # FOR DEPLOYING, UNCOMMENT LINE(s) BELOW
-from pyvirtualdisplay import Display
-from selenium.webdriver import FirefoxOptions
+# from pyvirtualdisplay import Display
+# from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.chrome.options import Options
 # ===================================
 
 from selenium import webdriver
@@ -15,14 +16,16 @@ from selenium.webdriver.common.by import By
 
 # ===================================
 # FOR DEPLOYING, UNCOMMENT LINE(s) BELOW
-opts = FirefoxOptions()
-opts.add_argument("--headless")
-driver = webdriver.Firefox(firefox_options=opts)
-display = Display(visible=0, size=(800, 600))
+# chromeOptions = Options()
+# chromeOptions.add_argument('--no-sandbox')
+# chromeOptions.add_argument('--headless')
+# chromeOptions.add_argument('--disable-dev-shm-usage')
+# driver = webdriver.Chrome(executable_path="/home/pfteza/chromedriver", options=chromeOptions)
+# display = Display(visible=0, size=(800, 600))
 # ===================================
 
 # FOR DEVELOPMENT: (LOCAL)
-# driver = webdriver.Firefox()
+driver = webdriver.Firefox()
 
 # urls = [
 #   "https://www.usatoday.com/",
@@ -40,7 +43,7 @@ class Scrapeth():
             try:
                 # ===================================
                 # FOR DEPLOYING, UNCOMMENT LINE BELOW
-                display.start()
+                # display.start()
 
                 url = "https://www.cnn.com/"
                 driver.get(url)
@@ -83,7 +86,7 @@ class Scrapeth():
                 driver.close()
                 # ===================================
                 # FOR DEPLOYING, UNCOMMENT LINE BELOW
-                display.stop()
+                # display.stop()
 
                 self.__articles = articlesList
 
@@ -91,7 +94,7 @@ class Scrapeth():
                 driver.close()
                 # ===================================
                 # FOR DEPLOYING, UNCOMMENT LINE BELOW
-                display.stop()
+                # display.stop()
 
                 print(f"error retrieving data: {e}")
 
