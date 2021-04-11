@@ -20,17 +20,18 @@ class Scrapeth():
         self.__articles = []
 
         def scrape():
+            articles_ = []
+
             articles__cbs = cbs.scrape_cbs()
             articles__cnn = cnn.scrape_cnn()
             articles__foxnews = foxnews.scrape_foxnews()
             articles__nbc = nbc.scrape_nbc()
             articles__nypost = nypost.scrape_nypost()
 
-            print(articles__cbs)
-            print(articles__cnn)
-            print(articles__foxnews)
-            print(articles__nbc)
-            print(articles__nypost)
+            articles_.extend(articles__cbs + articles__cnn +
+                             articles__foxnews + articles__nbc + articles__nypost)
+
+            self.__articles = articles_
 
         scrape()
 
