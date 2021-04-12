@@ -22,14 +22,15 @@ class Scrapeth():
         def scrape():
             articles_ = []
 
-            articles__cbs = cbs.scrape_cbs()
             articles__cnn = cnn.scrape_cnn()
             articles__foxnews = foxnews.scrape_foxnews()
+            articles__cbs = cbs.scrape_cbs()
             articles__nbc = nbc.scrape_nbc()
             articles__nypost = nypost.scrape_nypost()
 
-            articles_.extend(articles__cbs + articles__cnn +
-                             articles__foxnews + articles__nbc + articles__nypost)
+            articles_ = (articles__cbs + articles__nypost +
+                         articles__cnn + articles__nbc + articles__foxnews)
+            #  articles__foxnews + articles__nbc + articles__nypost)
 
             self.__articles = articles_
 

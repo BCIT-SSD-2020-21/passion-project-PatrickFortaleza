@@ -18,30 +18,39 @@ from selenium.webdriver.chrome.options import Options
 
 # ===================================
 # FOR DEPLOYING, UNCOMMENT LINE(s) BELOW
-chromeOptions = Options()
-chromeOptions.add_argument('--no-sandbox')
-chromeOptions.add_argument('--headless')
-chromeOptions.add_argument('--disable-dev-shm-usage')
+# chromeOptions = Options()
+# chromeOptions.add_argument('--no-sandbox')
+# chromeOptions.add_argument('--headless')
+# chromeOptions.add_argument('--disable-dev-shm-usage')
+# chromeOptions.add_argument('--log-path=chromedriver.log')
+# chromeOptions.add_argument('--verbose')
+# chromeOptions.add_argument('--disable-gpu')
+# chromeOptions.add_argument("--window-size=1920,1080")
 # ===================================
 
 today = date.today().isoformat()
 
 
 def scrape_foxnews():
+    print("attempt fox news")
     try:
         # ===================================
         # FOR DEVELOPMENT, UNCOMMENT LINE BELOW
-        # driver = webdriver.Firefox()
+        driver = webdriver.Firefox()
 
         # ===================================
         # FOR DEPLOYING, UNCOMMENT LINE(s) BELOW
-        driver = webdriver.Chrome(
-            executable_path="/home/pfteza/chromedriver", options=chromeOptions)
-        display = Display(visible=0, size=(800, 600))
-        display.start()
+        # driver = webdriver.Chrome(
+        #     executable_path="/home/pfteza/chromedriver", options=chromeOptions)
+        # print("attempt start display")
+        # display = Display(visible=0, size=(800, 600))
+        # display.start()
+        # print("successful start display")
         # ===================================
+        print("attempt start driver")
         url = "https://www.foxnews.com/"
         driver.get(url)
+        print("success start driver")
         try:
             WebDriverWait(driver, 10).until(EC.presence_of_element_located(
                 (By.XPATH, "//main[@class='main-content']")))
@@ -78,12 +87,9 @@ def scrape_foxnews():
             driver.quit()
             # ===================================
             # FOR DEPLOYING, UNCOMMENT LINE BELOW
-            display.stop()
+            # display.stop()
+            print("finish scrape cbs")
             return articlesList
 
     except Exception as e:
-        driver.quit()
         print(f"error retrieving data: {e}")
-        # ===================================
-        # FOR DEPLOYING, UNCOMMENT LINE BELOW
-        display.stop()
