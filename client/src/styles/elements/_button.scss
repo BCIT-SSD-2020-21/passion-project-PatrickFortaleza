@@ -1,0 +1,15 @@
+* button,
+* button.ui.button {
+  transition: 0.2s ease-in-out;
+  background: var(--highlight);
+  color: white;
+  border-radius: 0 !important;
+  padding: 15px 35px;
+}
+
+* button.ui.button:hover,
+* button.ui.button:focus {
+  background: var(--highlight);
+  color: white;
+  filter: brightness(1.25);
+}
