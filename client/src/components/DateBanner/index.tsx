@@ -1,9 +1,14 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Container, Button } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function DateBanner() {
+interface Props {
+  date: Date
+  handleDateChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function DateBanner({date, handleDateChange}: Props) {
   return (
     <div
       style={{
@@ -32,7 +37,8 @@ export default function DateBanner() {
           See past articles from popular news websites by searching a date.
         </p>
         <div style={{ display: "flex" }}>
-          <DatePicker selected={new Date()} />
+          {/* <DatePicker selected={date} onSelect={(event: ChangeEvent<HTMLInputElement>) => handleDateChange(event)}/> */}
+          <DatePicker selected={date} onChange={(event:ChangeEvent<HTMLInputElement>)  => handleDateChange(event)}/>           
           <Button style={{ letterSpacing: ".5px", textTransform: "uppercase" }}>
             Search Articles
           </Button>
