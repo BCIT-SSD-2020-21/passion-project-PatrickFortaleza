@@ -18,7 +18,7 @@ export default function DateBanner({date, handleDateChange}: Props) {
         justifyContent: "center",
         alignItems: "center",
         padding: "50px 20px",
-        backgroundImage: "url(/assets/images/background.png)",
+        // backgroundImage: "url(/assets/images/background.png)",
         backgroundSize: "cover",
         backgroundPosition: "center center",
       }}
