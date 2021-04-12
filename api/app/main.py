@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restful import Api, Resource
+from flask_cors import CORS
 from app.dbcontext import connection
 from bson import json_util, ObjectId
 import json
@@ -16,6 +17,8 @@ newsdata = database.newsdata
 
 
 app = Flask(__name__)
+app.config['CORS_HEADERS'] = 'Content-Type'
+cors = CORS(app, resources={"*": {"origins": "*"}})
 api = Api(app)
 
 
