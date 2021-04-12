@@ -1,104 +1,40 @@
-import requests
-import time
-from datetime import date
-from bs4 import BeautifulSoup
-# ===================================
-# FOR DEPLOYING, UNCOMMENT LINE(s) BELOW
-# from pyvirtualdisplay import Display
-# from selenium.webdriver.common.keys import Keys
-# from selenium.webdriver.chrome.options import Options
-# ===================================
+# autopep8: off
+import os
+import sys
 
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
+ROOT = os.path.dirname(os.path.abspath(__file__))
+scripts = os.path.join(ROOT, 'scripts')
+sys.path.insert(0, scripts)
 
-# ===================================
-# FOR DEPLOYING, UNCOMMENT LINE(s) BELOW
-# chromeOptions = Options()
-# chromeOptions.add_argument('--no-sandbox')
-# chromeOptions.add_argument('--headless')
-# chromeOptions.add_argument('--disable-dev-shm-usage')
-# driver = webdriver.Chrome(executable_path="/home/pfteza/chromedriver", options=chromeOptions)
-# display = Display(visible=0, size=(800, 600))
-# ===================================
-
-# FOR DEVELOPMENT: (LOCAL)
-driver = webdriver.Firefox()
-
-# urls = [
-#   "https://www.usatoday.com/",
-#   "https://www.foxnews.com/",
-#   "https://www.cnn.com/"
-# ]
+# From scripts, import each web scraping script.
+import cbs
+import cnn
+import foxnews
+import nbc
+import nypost
+# autopep8: on
 
 
 class Scrapeth():
     def __init__(self):
-        self.__today = date.today().isoformat()
         self.__articles = []
 
-        def scrape_cnn():
-            try:
-                # ===================================
-                # FOR DEPLOYING, UNCOMMENT LINE BELOW
-                # display.start()
+        def scrape():
+            articles_ = []
 
-                url = "https://www.cnn.com/"
-                driver.get(url)
-                try:
-                    WebDriverWait(driver, 10).until(EC.presence_of_element_located(
-                        (By.XPATH, "//section[@id='homepage1-zone-1']")))
-                finally:
-                    innerHTML = driver.execute_script(
-                        "window.scrollTo(0, document.body.scrollHeight-10000);var lenOfPage=document.body.scrollHeight;return document.body.innerHTML;")
+            articles__cnn = cnn.scrape_cnn()
+            articles__foxnews = foxnews.scrape_foxnews()
+            articles__cbs = cbs.scrape_cbs()
+            articles__nbc = nbc.scrape_nbc()
+            articles__nypost = nypost.scrape_nypost()
 
-                    page_soup = BeautifulSoup(innerHTML, "html.parser")
-                    topSection = page_soup.find(
-                        "section", {"id": "homepage1-zone-1"})
-                    newsColumns = topSection.find_all(
-                        "div", {"class": "column"})
+            articles_ = (articles__cbs + articles__nypost +
+                         articles__cnn + articles__nbc + articles__foxnews)
+            #  articles__foxnews + articles__nbc + articles__nypost)
 
-                    articlesList = []
-                    for column in newsColumns[:3]:
-                        articles = column.find_all("article")
-                        for article in articles[:1]:
-                            try:
-                                h3 = article.find(
-                                    "h3", {"class": "cd__headline"})
-                                headline = h3.find("a")
-                                link = headline["href"]
-                                text = headline.get_text()
+            self.__articles = articles_
 
-                                article_ = {
-                                    "site": "6070628dbcdb9a31a261bb97",  # Hardcoded ObjectID
-                                    "headline": text,
-                                    "article_url": link,
-                                    "date": self.__today
-                                }
-
-                                articlesList.append(article_)
-                            except Exception as e:
-                                print(f"error retrieving data: {e}")
-
-                # Closes tab
-                driver.close()
-                # ===================================
-                # FOR DEPLOYING, UNCOMMENT LINE BELOW
-                # display.stop()
-
-                self.__articles = articlesList
-
-            except Exception as e:
-                driver.close()
-                # ===================================
-                # FOR DEPLOYING, UNCOMMENT LINE BELOW
-                # display.stop()
-
-                print(f"error retrieving data: {e}")
-
-        scrape_cnn()
+        scrape()
 
 # ----------------------------------------
 # Getter setter for attributes
