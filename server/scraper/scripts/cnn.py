@@ -66,7 +66,7 @@ def scrape_cnn():
             articlesList = []
             for column in newsColumns[:3]:
                 articles = column.find_all("article")
-                for article in articles[:1]:
+                for article in articles[:3]:
                     try:
                         h3 = article.find(
                             "h3", {"class": "cd__headline"})
