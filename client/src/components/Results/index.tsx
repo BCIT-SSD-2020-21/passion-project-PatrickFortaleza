@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Loader } from "semantic-ui-react";
 import FilterSidebarCtrl from "../../controllers/FilterSidebar/FilterSidebarCtrl"
+import ArticleCtrl from "../../controllers/Article/ArticleCtrl"
 
 interface Props {
   loading: boolean
@@ -19,7 +20,7 @@ export default function Results({loading}: Props) {
               loading &&
               <Loader size='large' style={{position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" }}active inline='centered'/>
             }
-            Main
+            <ArticleCtrl />
           </section>
 
         </div>

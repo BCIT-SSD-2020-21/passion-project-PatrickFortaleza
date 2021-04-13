@@ -8,12 +8,15 @@ interface Props {
 
 export default function ResultsCtrl({date} :Props) {
   const [loading, setLoading] = useState(false)
+  const [articles, setArticles] = useState([])
 
   const getNews = async () => {
     if(!date) return
     setLoading(true)
     const result = await queryNews(date)
     setLoading(false)
+    if(result.error) return
+    setArticles(result.data.articles)
     console.log(result)
   }
 

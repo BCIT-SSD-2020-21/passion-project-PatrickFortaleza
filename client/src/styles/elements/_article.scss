@@ -1,0 +1,19 @@
+.article__container {
+  position: relative;
+  border: 1px solid var(--lightsecondary);
+  max-width: 330px;
+  padding: 7px 14px 7px 19px;
+}
+
+.article__accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background-color: #cc0000;
+}
+
+.article h4 {
+  margin: 0;
+}
