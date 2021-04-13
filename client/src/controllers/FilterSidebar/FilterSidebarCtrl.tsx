@@ -16,9 +16,9 @@ export default function FilterSidebarCtrl({syncVendorFilter, syncSortOrder}:Prop
     "NBC News": true
   })
   const [sortModel, setSortModel] = useState({
-    default: true,
+    default: false,
     alphabetically: false,
-    news_vendor: false
+    news_vendor: true
   })
 
   const changeFilters = (name: string) => {

@@ -80,12 +80,16 @@ export default function ResultsCtrl({date} :Props) {
     getNews()
   }, [date])
 
+  useEffect(() => {
+    sortFilterArray()
+  }, [articles])
+
 
   useEffect(() => {
     sortFilterArray()
   }, [sortOrder, vendorFilter])
   
   return (
-    <Results loading={loading} articles={articles_} syncVendorFilter={syncVendorFilter} syncSortOrder={syncSortOrder}/>
+    <Results loading={loading} articles={articles_} syncVendorFilter={syncVendorFilter} syncSortOrder={syncSortOrder} date={date}/>
   )
 }

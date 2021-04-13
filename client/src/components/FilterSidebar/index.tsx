@@ -21,7 +21,7 @@ export default function FilterSidebar({sites, checkboxModel, sortModel, changeFi
     </div>
 
     <div>
-      <h4 style={{...style.smallHead, textTransform: "uppercase" }}>Filter By News Site:</h4>
+      <h4 style={{...style.smallHead, textTransform: "uppercase" }}>Filter By Vendor:</h4>
       <form className="form form__checkboxes">
 
         {
