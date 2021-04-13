@@ -4,9 +4,10 @@ import { Site } from "../../models/site"
 
 interface Props {
   syncVendorFilter: (filters: Array<string>) => void
+  syncSortOrder: (order: string) => void
 }
 
-export default function FilterSidebarCtrl({syncVendorFilter}:Props) {
+export default function FilterSidebarCtrl({syncVendorFilter, syncSortOrder}:Props) {
   const [checkboxModel, setCheckboxModel] = useState({
     "CNN": true,
     "Fox News": true,
@@ -45,9 +46,21 @@ export default function FilterSidebarCtrl({syncVendorFilter}:Props) {
     syncVendorFilter(filters)
   }
 
+  const evaluateSyncSort = () => {
+    let order: string = ""
+    Object.entries(sortModel).forEach(([key, value]) => {
+      if(value === true) order = key
+    })
+    syncSortOrder(order)
+  }
+
   useEffect(() => {
     evaluateSyncFilter()
   }, [checkboxModel])
+
+  useEffect(() => {
+    evaluateSyncSort()
+  }, [sortModel])
 
   return (
     <FilterSidebar 
@@ -62,21 +75,9 @@ export default function FilterSidebarCtrl({syncVendorFilter}:Props) {
 
 const sites: Array<Site> = [
   {
-    _id: { $oid: "6070628dbcdb9a31a261bb97" },
-    name: "CNN",
-    url: "https://www.cnn.com/",
-    img: "/assets/logos/cnn.png"
-  },
-  {
-    _id: { $oid: "60721296a55796cad11d99e8" },
-    name: "Fox News",
-    url: "https://www.foxnews.com/",
-    img: "/assets/logos/foxnews.png"
-  },
-  {
     _id: { $oid: "6072168fa55796cad11d99ea" },
     name: "CBS News",
-    url: "https://www.foxnews.com/",
+    url: "https://www.cbsnews.com/us/",
     img: "/assets/logos/cbs.png"
   },
   {
@@ -86,9 +87,21 @@ const sites: Array<Site> = [
     img: "/assets/logos/nypost.png"
   },
   {
+    _id: { $oid: "6070628dbcdb9a31a261bb97" },
+    name: "CNN",
+    url: "https://www.cnn.com/",
+    img: "/assets/logos/cnn.png"
+  },
+  {
     _id: { $oid: "6073591a220e8618cb695684" },
     name: "NBC News",
     url: "https://www.nbcnews.com/",
     img: "/assets/logos/nbc.png"
-  }
+  },
+  {
+    _id: { $oid: "60721296a55796cad11d99e8" },
+    name: "Fox News",
+    url: "https://www.foxnews.com/",
+    img: "/assets/logos/foxnews.png"
+  },
 ]

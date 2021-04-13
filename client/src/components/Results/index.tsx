@@ -9,15 +9,19 @@ interface Props {
   loading: boolean
   articles: Array<Article>
   syncVendorFilter: (filters: Array<string>) => void
+  syncSortOrder: (order: string) => void
 }
 
-export default function Results({loading, articles, syncVendorFilter}: Props) {
+export default function Results({loading, articles, syncVendorFilter, syncSortOrder}: Props) {
   return (
     <div style={{height: "100%", marginTop: 20, overflow: "hidden"}}>
       <Container style={{height: "100%"}}>
         <div style={style.flex}>
 
-          <FilterSidebarCtrl syncVendorFilter={(filters: Array<string>) => syncVendorFilter(filters)}/>
+          <FilterSidebarCtrl 
+            syncVendorFilter={(filters: Array<string>) => syncVendorFilter(filters)}
+            syncSortOrder={(order: string) => syncSortOrder(order)}
+          />
 
           <section className="article__flex" style={{...style.main, position: "relative"}}>
             {
