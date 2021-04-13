@@ -36,56 +36,54 @@ export default function ResultsCtrl({date} :Props) {
     setSortOrder(order)
   }
 
-  const filterArticles = () => {
-    if(!articles && (articles as Array<string>).length < 1) return
-    setLoading(true)
+  const filterArticles = (array: Array<Article>) => {
+    if(!array && (array as Array<string>).length < 1) return
     const filteredArray = [...articles].filter((article) => {
       if(!(vendorFilter as Array<string>).includes((article as Article).site[0].name)) return article
       return
     })
     
-    setArticles_(filteredArray)
-    sortArticles()
-    setLoading(false)
+    return filteredArray
   }
 
-  const sortArticles = () => {
+  const sortArticles = (array: Array<Article>) => {
     switch(sortOrder){
       case "default":
-        setArticles_(articles_)
-        break;
+        return array
       case "alphabetically":
-        const sortedAlphabetically = ([...articles_] as Array<Article>).sort((a, b) => {
+        const sortedAlphabetically = ([...array] as Array<Article>).sort((a, b) => {
           // Some headlines have " " as their first letter which throws sorting off
           let headlineA = a.headline[0] !== " " ? a.headline : a.headline.substring(1),
               headlineB = b.headline[0] !== " " ? b.headline : b.headline.substring(1)
           return headlineA.localeCompare(headlineB)
         })
         
-        setArticles_((sortedAlphabetically as any))
-        break;
+        return sortedAlphabetically
       case "news_vendor":
-        const sortedVendors = ([...articles_] as Array<Article>).sort((a, b) =>
+        const sortedVendors = ([...array] as Array<Article>).sort((a, b) =>
           (a).site[0].name.localeCompare((b).site[0].name))
-        setArticles_((sortedVendors as any))
-        break;
+        return sortedVendors
       default: 
-        setArticles_(articles_)
-        break;
+        return array
     }
+  }
+
+  const sortFilterArray = () => {
+    setLoading(true)
+    const filtered = filterArticles(articles)
+    const sorted = sortArticles((filtered as Array<Article>))
+    setArticles_((sorted as any))
+    setLoading(false)
   }
 
   useEffect(() => {
     getNews()
   }, [date])
 
-  useEffect(() => {
-    filterArticles()
-  }, [vendorFilter])
 
   useEffect(() => {
-    sortArticles()
-  }, [sortOrder])
+    sortFilterArray()
+  }, [sortOrder, vendorFilter])
   
   return (
     <Results loading={loading} articles={articles_} syncVendorFilter={syncVendorFilter} syncSortOrder={syncSortOrder}/>
