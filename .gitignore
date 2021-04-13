@@ -8,3 +8,4 @@ node_modules/
 __pycache__/
 geckodriver.log
 */geckodriver.log
+site-packages/
