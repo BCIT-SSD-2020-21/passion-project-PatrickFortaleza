@@ -1,20 +1,28 @@
 import React from 'react'
+import {Article as ArticleType} from "../../models/article"
 
-export default function Article() {
+interface Props {
+  article: ArticleType,
+  formattedDate: string,
+  formattedURL: string,
+  colorModel: object | any
+}
+
+export default function Article({article, formattedDate, colorModel, formattedURL}: Props) {
   return (
-    <a href="https://github.com" target="blank_">
+    <a href={formattedURL} target="blank_" style={{display: "block"}} className="article__wrap">
       <article className="article article__container">
-        <span className="article__accent"></span>
-        <h4 style={{color: "#353535"}}>He was known inside Cup Foods well before the two became forever linked. Now Floyd’s memory is woven into the site.</h4>
+        <span className="article__accent" style={{background: `${colorModel[`${article.site[0].name}`]}`}}></span>
+        <h4 style={{color: "#353535"}}>{article.headline}</h4>
 
         <div style={{display: "flex", justifyContent: "space-between", marginTop: 14}}>
-          <label style={{display: "flex", fontSize: 12, fontWeight: "bold", color: "grey"}}>
+          <label style={{display: "flex", fontSize: 12, fontWeight: "bold", color: "#353535"}}>
             <div className="thumbnail__box">
-              <img className="thumbnail__img" src={"/assets/logos/cnn.png"} alt="thumbnail" />
+              <img className="thumbnail__img" src={article.site[0].img} alt="thumbnail" />
             </div>
-            CNN
+            {article.site[0].name}
           </label>
-          <p style={{fontSize: 12, color: "grey", fontWeight: "bold"}}>April 13, 2021</p>
+          <p style={{fontSize: 12, color: "grey" }}>{formattedDate}</p>
         </div>
       </article>
     </a>

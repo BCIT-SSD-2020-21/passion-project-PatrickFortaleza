@@ -15,7 +15,7 @@ export default function ResultsCtrl({date} :Props) {
     setLoading(true)
     const result = await queryNews(date)
     setLoading(false)
-    if(result.error) return
+    if(result.error) return setArticles([])
     setArticles(result.data.articles)
     console.log(result)
   }
@@ -25,6 +25,6 @@ export default function ResultsCtrl({date} :Props) {
   }, [date])
   
   return (
-    <Results loading={loading}/>
+    <Results loading={loading} articles={articles}/>
   )
 }
