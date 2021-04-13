@@ -8,15 +8,16 @@ import NotFound from "../NotFound/index"
 interface Props {
   loading: boolean
   articles: Array<Article>
+  syncVendorFilter: (filters: Array<string>) => void
 }
 
-export default function Results({loading, articles}: Props) {
+export default function Results({loading, articles, syncVendorFilter}: Props) {
   return (
     <div style={{height: "100%", marginTop: 20, overflow: "hidden"}}>
       <Container style={{height: "100%"}}>
         <div style={style.flex}>
 
-          <FilterSidebarCtrl />
+          <FilterSidebarCtrl syncVendorFilter={(filters: Array<string>) => syncVendorFilter(filters)}/>
 
           <section className="article__flex" style={{...style.main, position: "relative"}}>
             {

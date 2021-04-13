@@ -1,8 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import FilterSidebar from "../../components/FilterSidebar/index"
 import { Site } from "../../models/site"
 
-export default function FilterSidebarCtrl() {
+interface Props {
+  syncVendorFilter: (filters: Array<string>) => void
+}
+
+export default function FilterSidebarCtrl({syncVendorFilter}:Props) {
   const [checkboxModel, setCheckboxModel] = useState({
     "CNN": true,
     "Fox News": true,
@@ -31,6 +35,19 @@ export default function FilterSidebarCtrl() {
     (updatedSortModel as any)[key] = true;
     setSortModel(updatedSortModel)
   }
+
+  const evaluateSyncFilter = () => {
+    let filters: Array<string> = []
+    Object.entries(checkboxModel).forEach(([key, value]) => {
+      if(value === false) filters = [...filters, key]
+    })
+
+    syncVendorFilter(filters)
+  }
+
+  useEffect(() => {
+    evaluateSyncFilter()
+  }, [checkboxModel])
 
   return (
     <FilterSidebar 
