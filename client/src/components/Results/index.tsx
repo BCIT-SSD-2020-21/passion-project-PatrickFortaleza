@@ -4,10 +4,12 @@ import { Site } from "../../models/site"
 
 interface Props {
   sites: Array<Site>,
+  sortModel: Object | any,
   checkboxModel: Object | any,
-  changeFilters: (name: string) => void
+  changeFilters: (name: string) => void,
+  changeSort: (name: string) => void
 }
-export default function Results({sites, checkboxModel, changeFilters}:Props) {
+export default function Results({sites, checkboxModel, sortModel, changeFilters, changeSort}:Props) {
   return (
     <div style={{height: "100%", marginTop: 20}}>
       <Container style={{height: "100%"}}>
@@ -45,6 +47,24 @@ export default function Results({sites, checkboxModel, changeFilters}:Props) {
               </form>
 
               <h4 style={{...style.smallHead, textTransform: "uppercase" }}>Sort By:</h4>
+
+              <form className="form form__checkboxes">
+                {
+                  typeof sortModel === 'object' && sortModel !== null &&
+                  Object.entries(sortModel).map(([key, value], index) => {
+                    return (
+                      <div className={value === true ? "box__row active" : "box__row"} key={index}>
+                      <div className="box__label" style={{display: "flex"}}>
+                        <label htmlFor={key} style={{textTransform: "uppercase", fontWeight: 700, fontSize: 12}}>{key.replace(/_/g, " ")}</label>
+                      </div>
+                      <Checkbox value={key} checked={sortModel[key]}  onChange={() => changeSort(key) }slider fitted/>
+                    </div>
+                    )
+                    
+                  })
+                }
+              </form>
+
             </div>
           </aside>
 
@@ -85,6 +105,6 @@ const style = {
     fontSize: 12,
     margin: 0,
     padding: "7px 14px",
-    marginTop: 20
+    marginTop: 7
   },
 }

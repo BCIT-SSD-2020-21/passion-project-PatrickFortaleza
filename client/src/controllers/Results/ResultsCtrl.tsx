@@ -15,6 +15,11 @@ export default function ResultsCtrl({date} :Props) {
     "New York Post": true,
     "NBC News": true
   })
+  const [sortModel, setSortModel] = useState({
+    default: true,
+    alphabetically: false,
+    news_vendor: false
+  })
 
   
   const changeFilters = (name: string) => {
@@ -22,7 +27,15 @@ export default function ResultsCtrl({date} :Props) {
     const key = name;
     (updatedCheckboxModel as any)[key] = !(updatedCheckboxModel as any)[key]
     setCheckboxModel(updatedCheckboxModel)
-    
+  }
+
+  const changeSort = (key: string) => {
+    const updatedSortModel = {...sortModel}
+    Object.keys(updatedSortModel).forEach(k => {
+      (updatedSortModel as any)[k] = false;
+    });
+    (updatedSortModel as any)[key] = true;
+    setSortModel(updatedSortModel)
   }
 
   const getNews = async () => {
@@ -36,7 +49,7 @@ export default function ResultsCtrl({date} :Props) {
   }, [date])
   
   return (
-    <Results sites={sites} checkboxModel={checkboxModel} changeFilters={changeFilters}/>
+    <Results sites={sites} checkboxModel={checkboxModel} sortModel={sortModel} changeFilters={changeFilters} changeSort={changeSort}/>
   )
 }
 
