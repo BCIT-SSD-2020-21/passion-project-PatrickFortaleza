@@ -1,10 +1,12 @@
 import React from 'react'
-import { Container } from "semantic-ui-react";
-import { Site } from "../../models/site"
+import { Container, Loader } from "semantic-ui-react";
 import FilterSidebarCtrl from "../../controllers/FilterSidebar/FilterSidebarCtrl"
 
+interface Props {
+  loading: boolean
+}
 
-export default function Results() {
+export default function Results({loading}: Props) {
   return (
     <div style={{height: "100%", marginTop: 20}}>
       <Container style={{height: "100%"}}>
@@ -12,7 +14,11 @@ export default function Results() {
 
           <FilterSidebarCtrl />
 
-          <section style={style.main}>
+          <section style={{...style.main, position: "relative"}}>
+            {
+              loading &&
+              <Loader size='large' style={{position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" }}active inline='centered'/>
+            }
             Main
           </section>
 

@@ -14,6 +14,7 @@
   border-radius: 0 !important;
   border: 1px solid var(--lightborder) !important;
   box-shadow: var(--shadow) !important;
+  z-index: 50000 !important;
   .react-datepicker__triangle {
     left: 20px !important;
   }
@@ -30,6 +31,10 @@
   letter-spacing: 0.5px;
 }
 
+.react-datepicker-popper {
+  z-index: 5000 !important;
+}
+
 .react-datepicker__day-name {
   color: white !important;
 }
@@ -37,4 +42,8 @@
 .react-datepicker__day--keyboard-selected {
   background-color: var(--highlight) !important;
   border-radius: 0 !important;
+}
+
+.react-datepicker__triangle {
+  border-bottom-color: var(--highlight) !important;
 }

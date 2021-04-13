@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Results from "../../components/Results"
 import { queryNews } from "../../network/index"
 
@@ -7,10 +7,13 @@ interface Props {
 }
 
 export default function ResultsCtrl({date} :Props) {
+  const [loading, setLoading] = useState(false)
 
   const getNews = async () => {
     if(!date) return
+    setLoading(true)
     const result = await queryNews(date)
+    setLoading(false)
     console.log(result)
   }
 
@@ -19,6 +22,6 @@ export default function ResultsCtrl({date} :Props) {
   }, [date])
   
   return (
-    <Results/>
+    <Results loading={loading}/>
   )
 }
