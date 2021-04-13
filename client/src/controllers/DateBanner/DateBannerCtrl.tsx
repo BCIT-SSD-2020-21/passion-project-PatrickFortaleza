@@ -24,13 +24,13 @@ export default function DateBannerCtrl({watchDate}: Props) {
     setFormattedDate(dateString)
   }
 
+  const submitQuery = () => {
+    watchDate(formattedDate)
+  }
+
   useEffect(() => {
     formatDate()
   }, [date])
 
-  useEffect(() => {
-    watchDate(formattedDate)
-  }, [formattedDate])
-
-  return <DateBanner date={date} handleDateChange={handleDateChange}/>;
+  return <DateBanner date={date} handleDateChange={handleDateChange} submitQuery={submitQuery}/>;
 }

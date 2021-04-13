@@ -6,9 +6,10 @@ import "react-datepicker/dist/react-datepicker.css";
 interface Props {
   date: Date
   handleDateChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  submitQuery: () => void
 }
 
-export default function DateBanner({date, handleDateChange}: Props) {
+export default function DateBanner({date, handleDateChange, submitQuery}: Props) {
   return (
     <div
       style={{
@@ -39,7 +40,7 @@ export default function DateBanner({date, handleDateChange}: Props) {
         <div style={{ display: "flex" }}>
           {/* <DatePicker selected={date} onSelect={(event: ChangeEvent<HTMLInputElement>) => handleDateChange(event)}/> */}
           <DatePicker selected={date} onChange={(event:ChangeEvent<HTMLInputElement>)  => handleDateChange(event)}/>           
-          <Button style={{ letterSpacing: ".5px", textTransform: "uppercase" }}>
+          <Button onClick={() => submitQuery()} style={{ letterSpacing: ".5px", textTransform: "uppercase" }}>
             Search Articles
           </Button>
         </div>

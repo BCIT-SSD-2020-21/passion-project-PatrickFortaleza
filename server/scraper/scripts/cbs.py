@@ -65,7 +65,7 @@ def scrape_cbs():
                 "div", {"class": "component__item-wrapper"})
 
             articlesList = []
-            for column in newsColumns[:2]:
+            for column in newsColumns[:3]:
                 articles = column.find_all("article")
                 for article in articles[:5]:
                     try:

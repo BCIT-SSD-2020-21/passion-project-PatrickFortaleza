@@ -65,7 +65,7 @@ def scrape_nypost():
                 "div", {"class": "home-page-section-stories-wrapper"})
 
             articlesList = []
-            for column in newsColumns:
+            for column in newsColumns[:3]:
                 articles = column.find_all("article", {"class": "top-story"})
                 for article in articles[:5]:
                     try:

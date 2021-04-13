@@ -1,0 +1,40 @@
+.thumbnail__box {
+  height: 21px;
+  width: 21px;
+  overflow: hidden;
+  margin-right: 10px;
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+form.form__checkboxes .ui.slider.checkbox input:checked ~ label:before {
+  background-color: var(--highlight) !important;
+}
+
+form.form__checkboxes .box__row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #f7f7f7;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  filter: grayscale(1.5);
+  transition: 0.2s ease-in-out;
+
+  & .box__label {
+    opacity: 0.25;
+    transition: 0.2s ease-in-out;
+  }
+
+  &.active {
+    filter: unset;
+    opacity: 1;
+
+    & .box__label {
+      opacity: 1;
+    }
+  }
+}

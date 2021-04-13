@@ -11,9 +11,9 @@ export default function Home() {
   }
 
   return (
-    <div className="page" style={{height: "calc(100vh - 40px)"}}>
+    <div className="page" style={{height: "calc(100vh - 20px)"}}>
       <Header/>
-      <main style={{paddingTop: 40}}>
+      <main style={{paddingTop: 40, height: "100%", display: "flex", flexDirection: "column"}}>
         <DateBannerCtrl watchDate={watchDate}/>
         <ResultsCtrl date={date}/>
       </main>
