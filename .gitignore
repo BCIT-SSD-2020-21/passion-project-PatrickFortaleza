@@ -10,3 +10,4 @@ geckodriver.log
 */geckodriver.log
 site-packages/
 lib/
+bin/
