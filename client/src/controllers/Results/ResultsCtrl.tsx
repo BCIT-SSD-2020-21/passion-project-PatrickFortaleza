@@ -5,9 +5,10 @@ import { Article } from "../../models/article"
 
 interface Props {
   date: string
+  focusCount: number
 }
 
-export default function ResultsCtrl({date} :Props) {
+export default function ResultsCtrl({date, focusCount} :Props) {
   const [loading, setLoading] = useState(false)
   // For storing the query in memory
   const [articles, setArticles] = useState([])
@@ -15,6 +16,7 @@ export default function ResultsCtrl({date} :Props) {
   const [articles_, setArticles_] = useState([])
   const [vendorFilter, setVendorFilter] = useState([])
   const [sortOrder, setSortOrder] = useState('')
+  const [focused, setFocused] = useState(false)
 
   const getNews = async () => {
     if(!date) return
@@ -88,8 +90,12 @@ export default function ResultsCtrl({date} :Props) {
   useEffect(() => {
     sortFilterArray()
   }, [sortOrder, vendorFilter])
+
+  useEffect(() => {
+    if(focusCount > 0) setFocused(true)
+  }, [focusCount])
   
   return (
-    <Results loading={loading} articles={articles_} syncVendorFilter={syncVendorFilter} syncSortOrder={syncSortOrder} date={date}/>
+    <Results loading={loading} articles={articles_} focused={focused} syncVendorFilter={syncVendorFilter} syncSortOrder={syncSortOrder} date={date}/>
   )
 }

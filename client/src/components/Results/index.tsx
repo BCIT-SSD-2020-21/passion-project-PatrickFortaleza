@@ -4,6 +4,7 @@ import FilterSidebarCtrl from "../../controllers/FilterSidebar/FilterSidebarCtrl
 import ArticleCtrl from "../../controllers/Article/ArticleCtrl"
 import { Article } from "../../models/article"
 import NotFound from "../NotFound/index"
+import Welcome from "../Welcome/index"
 
 interface Props {
   loading: boolean
@@ -11,9 +12,10 @@ interface Props {
   syncVendorFilter: (filters: Array<string>) => void
   syncSortOrder: (order: string) => void
   date: string
+  focused: boolean
 }
 
-export default function Results({loading, articles, date, syncVendorFilter, syncSortOrder}: Props) {
+export default function Results({loading, articles, date, focused, syncVendorFilter, syncSortOrder}: Props) {
   return (
     <div style={{height: "100%", marginTop: 20, overflow: "hidden"}}>
       <Container style={{height: "100%"}}>
@@ -52,7 +54,7 @@ export default function Results({loading, articles, date, syncVendorFilter, sync
                   )
                 })
                 :
-                <NotFound />
+                focused ? <NotFound/> : <Welcome />
               }
             </section>
           </div>
