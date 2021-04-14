@@ -1,38 +1,48 @@
 from dbconnection.connection import DbContext
 from scraper.scrapeNews import Scrapeth
 from datetime import date
+import schedule
+import time
 
-# Establish connection
-Context = DbContext
-MongoDbContext = Context().context
-database = MongoDbContext.PyNews
 
-# Collections
-articles = database.articles
-sites = database.sites
-newsdata = database.newsdata
+def insert(self):
+    # Establish connection
+    Context = DbContext
+    MongoDbContext = Context().context
+    database = MongoDbContext.PyNews
 
-Scrape = Scrapeth
-articlesList = Scrape().articles
+    # Collections
+    articles = database.articles
+    sites = database.sites
+    newsdata = database.newsdata
 
-print(articlesList)
-# existingNewsData = newsdata.find_one({"date": date.today().isoformat()})
+    Scrape = Scrapeth
+    articlesList = Scrape().articles
 
-# if existingNewsData is None:
+    print(articlesList)
+    existingNewsData = newsdata.find_one({"date": date.today().isoformat()})
 
-#     newsData = {
-#         "date": date.today().isoformat(),
-#         "articles": []
-#     }
+    if existingNewsData is None:
 
-#     for articleItem in articlesList:
-#         articleResult = articles.insert_one(articleItem)
-#         articleObjectId = articleResult.inserted_id
-#         newsData["articles"].append(articleObjectId)
+        newsData = {
+            "date": date.today().isoformat(),
+            "articles": []
+        }
 
-#     res = newsdata.insert_one(newsData)
-#     print(newsData)
+        for articleItem in articlesList:
+            articleResult = articles.insert_one(articleItem)
+            articleObjectId = articleResult.inserted_id
+            newsData["articles"].append(articleObjectId)
 
+        res = newsdata.insert_one(newsData)
+        print(newsData)
+
+
+schedule.every().day.at("21:00").do(insert, 'Inserting...')
+
+while True:
+    schedule.run_pending()
+    time.sleep(60)
 
 # ======================================
 # Testing - uncomment to test insertion

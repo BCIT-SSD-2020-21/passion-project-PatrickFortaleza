@@ -20,6 +20,11 @@ from selenium.webdriver.firefox.options import Options
 # FOR DEPLOYING, UNCOMMENT LINE(s) BELOW
 options = Options()
 options.headless = True
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument("--window-size=1920,1080")
+options.add_argument('--disable-gpu')
+options.log.level = "TRACE"
 # ===================================
 
 today = date.today().isoformat()
@@ -36,12 +41,14 @@ def scrape_cbs():
 
         # ===================================
         # FOR DEPLOYING, UNCOMMENT LINE(s) BELOW
-        driver = webdriver.Firefox(
-            executable_path="/home/pfteza/geckodriver", options=options)
+        print("attempt initialize driver")
         print("attempt start display")
-        display = Display(visible=0, size=(800, 600))
+        display = Display(visible=0, size=(1920, 1080))
         display.start()
         print("successful start display")
+        driver = webdriver.Firefox(
+            executable_path="/home/pfteza/geckodriver", options=options)
+        print("successful initialization of driver")
         # ===================================
         url = "https://www.cbsnews.com/us/"
         print("attempt start driver")
