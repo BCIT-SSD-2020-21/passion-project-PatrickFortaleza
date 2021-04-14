@@ -15,22 +15,23 @@ newsdata = database.newsdata
 Scrape = Scrapeth
 articlesList = Scrape().articles
 
-existingNewsData = newsdata.find_one({"date": date.today().isoformat()})
+print(articlesList)
+# existingNewsData = newsdata.find_one({"date": date.today().isoformat()})
 
-if existingNewsData is None:
+# if existingNewsData is None:
 
-    newsData = {
-        "date": date.today().isoformat(),
-        "articles": []
-    }
+#     newsData = {
+#         "date": date.today().isoformat(),
+#         "articles": []
+#     }
 
-    for articleItem in articlesList:
-        articleResult = articles.insert_one(articleItem)
-        articleObjectId = articleResult.inserted_id
-        newsData["articles"].append(articleObjectId)
+#     for articleItem in articlesList:
+#         articleResult = articles.insert_one(articleItem)
+#         articleObjectId = articleResult.inserted_id
+#         newsData["articles"].append(articleObjectId)
 
-    res = newsdata.insert_one(newsData)
-    print(newsData)
+#     res = newsdata.insert_one(newsData)
+#     print(newsData)
 
 
 # ======================================
