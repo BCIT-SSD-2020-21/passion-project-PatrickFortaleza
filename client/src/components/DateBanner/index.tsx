@@ -7,46 +7,75 @@ interface Props {
   date: Date
   handleDateChange: (event: ChangeEvent<HTMLInputElement>) => void;
   submitQuery: () => void
+  focusCounter: () => void;
+  fade: boolean
+  remove: boolean
 }
 
-export default function DateBanner({date, handleDateChange, submitQuery}: Props) {
+export default function DateBanner({date, fade, remove, handleDateChange, submitQuery, focusCounter}: Props) {
   return (
     <div
+      className={remove ? "banner__container fade" : "banner__container"}
       style={{
-        minHeight: 250,
         background: "#f7f7f7",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: "50px 20px",
         // backgroundImage: "url(/assets/images/background.png)",
         backgroundSize: "cover",
         backgroundPosition: "center center",
+        transition: "all .2s ease-in-out"
       }}
     >
       <div>
-        <h2
-          style={{
-            textAlign: "center",
-            textTransform: "uppercase",
-            marginBottom: "5px",
-          }}
-        >
-          Compare Top News Stories
-        </h2>
-        <p style={{ textAlign: "center", marginBottom: 35 }}>
-          See past articles from popular news websites by searching a date.
-        </p>
-        <div style={{ display: "flex" }}>
+        {
+          !remove &&
+          <>
+            <h2
+              className={fade ? "date__banner fade" : "date__banner"}
+              style={{
+                textAlign: "center",
+                textTransform: "uppercase",
+                marginBottom: "5px",
+                fontSize: 20,
+              }}
+            >
+              Compare Top News Headlines
+            </h2>
+            <p
+              className={fade ? "date__banner fade" : "date__banner"} 
+              style={{ textAlign: "center", marginBottom: 35 }}
+            >
+              Enter any past date and click search!
+            </p>
+          </>
+        }
+        <div style={{ display: "flex" }} >
           {/* <DatePicker selected={date} onSelect={(event: ChangeEvent<HTMLInputElement>) => handleDateChange(event)}/> */}
-          <DatePicker selected={date} onChange={(event:ChangeEvent<HTMLInputElement>)  => handleDateChange(event)}/>           
-          <Button onClick={() => submitQuery()} style={{ letterSpacing: ".5px", textTransform: "uppercase" }}>
+          <DatePicker
+            selected={date} 
+            onChange={(event:ChangeEvent<HTMLInputElement>)  => handleDateChange(event)}
+            maxDate={new Date()} 
+          />           
+          <Button 
+            onClick={() => { 
+              submitQuery()
+              focusCounter()
+            }} 
+            style={{ letterSpacing: ".5px", textTransform: "uppercase" }}
+          >
             Search Articles
           </Button>
         </div>
-        <p style={{ textAlign: "left", fontSize: 12, padding: "3px 0" }}>
-          Data sets available from April 11, 2021 and onward.
-        </p>
+        {
+          !remove &&
+            <p
+              className={fade ? "date__banner fade" : "date__banner"} 
+              style={{ textAlign: "left", fontSize: 12, padding: "3px 0" }}
+            >
+              Data sets available from April 11, 2021 and onward.
+            </p>
+        }
       </div>
     </div>
   );
