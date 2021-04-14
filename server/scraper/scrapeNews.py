@@ -23,12 +23,13 @@ class Scrapeth():
             articles_ = []
 
             articles__cnn = cnn.scrape_cnn()
-            # articles__foxnews = foxnews.scrape_foxnews()
+            articles__foxnews = foxnews.scrape_foxnews()
             articles__cbs = cbs.scrape_cbs()
-            # articles__nbc = nbc.scrape_nbc()
-            # articles__nypost = nypost.scrape_nypost()
+            articles__nbc = nbc.scrape_nbc()
+            articles__nypost = nypost.scrape_nypost()
 
-            articles_ = articles__cbs + articles__cnn
+            articles_ = articles__cbs + articles__cnn + \
+                articles__foxnews + articles__nbc + articles__nypost
 
             self.__articles = articles_
 

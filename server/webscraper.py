@@ -38,7 +38,7 @@ def insert(self):
         print(newsData)
 
 
-schedule.every().day.at("21:00").do(insert, 'Inserting...')
+schedule.every().day.at("21:35").do(insert, 'Inserting...')
 
 while True:
     schedule.run_pending()
