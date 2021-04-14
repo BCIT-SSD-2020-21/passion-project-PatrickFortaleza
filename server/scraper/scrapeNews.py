@@ -28,9 +28,8 @@ class Scrapeth():
             articles__nbc = nbc.scrape_nbc()
             articles__nypost = nypost.scrape_nypost()
 
-            articles_ = (articles__cbs + articles__nypost +
-                         articles__cnn + articles__nbc + articles__foxnews)
-            #  articles__foxnews + articles__nbc + articles__nypost)
+            articles_ = articles__cbs + articles__cnn + \
+                articles__foxnews + articles__nbc + articles__nypost
 
             self.__articles = articles_
 

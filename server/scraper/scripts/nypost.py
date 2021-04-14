@@ -11,21 +11,20 @@ from selenium import webdriver
 
 # ===================================
 # FOR DEPLOYING, UNCOMMENT LINE(s) BELOW
-# from pyvirtualdisplay import Display
-# from selenium.webdriver.common.keys import Keys
-# from selenium.webdriver.chrome.options import Options
+from pyvirtualdisplay import Display
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.firefox.options import Options
 # ===================================
 
 # ===================================
 # FOR DEPLOYING, UNCOMMENT LINE(s) BELOW
-# chromeOptions = Options()
-# chromeOptions.add_argument('--no-sandbox')
-# chromeOptions.add_argument('--headless')
-# chromeOptions.add_argument('--disable-dev-shm-usage')
-# chromeOptions.add_argument('--log-path=chromedriver.log')
-# chromeOptions.add_argument('--verbose')
-# chromeOptions.add_argument('--disable-gpu')
-# chromeOptions.add_argument("--window-size=1920,1080")
+options = Options()
+options.headless = True
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
+options.add_argument("--window-size=1920,1080")
+options.add_argument('--disable-gpu')
+options.log.level = "TRACE"
 # ===================================
 
 today = date.today().isoformat()
@@ -33,19 +32,23 @@ today = date.today().isoformat()
 
 def scrape_nypost():
     print("attempt scrape nypost")
+    driver = None
+    display = None
     try:
         # ===================================
         # FOR DEVELOPMENT, UNCOMMENT LINE BELOW
-        driver = webdriver.Firefox()
+        # driver = webdriver.Firefox()
 
         # ===================================
         # FOR DEPLOYING, UNCOMMENT LINE(s) BELOW
-        # driver = webdriver.Chrome(
-        #     executable_path="/home/pfteza/chromedriver", options=chromeOptions)
-        # print("attempt start display")
-        # display = Display(visible=0, size=(800, 600))
-        # display.start()
-        # print("successful start display")
+        print("attempt initialize driver")
+        print("attempt start display")
+        display = Display(visible=0, size=(1920, 1080))
+        display.start()
+        print("successful start display")
+        driver = webdriver.Firefox(
+            executable_path="/home/pfteza/geckodriver", options=options)
+        print("successful initialization of driver")
         # ===================================
         url = "https://nypost.com/"
         print("attempt start driver")
@@ -86,12 +89,16 @@ def scrape_nypost():
                     except Exception as e:
                         print(f"error retrieving data: {e}")
 
-            driver.quit()
+            driver.close()
             # ===================================
             # FOR DEPLOYING, UNCOMMENT LINE BELOW
-            # display.stop()
+            display.stop()
             print("finish scrape cbs")
             return articlesList
 
     except Exception as e:
+        if driver is not None:
+            driver.close()
+        if display is not None:
+            display.stop()
         print(f"error retrieving data: {e}")
