@@ -22,7 +22,7 @@ export default function Home() {
       <Header/>
       <main style={{paddingTop: 40, height: "100%", display: "flex", flexDirection: "column"}}>
         <DateBannerCtrl watchDate={watchDate} focusCounter={() => incrementCounter()} focusCount={focusCounter}/>
-        <ResultsCtrl date={date}/>
+        <ResultsCtrl date={date} focusCount={focusCounter}/>
       </main>
     </div>
   )

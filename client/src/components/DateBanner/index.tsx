@@ -62,7 +62,7 @@ export default function DateBanner({date, fade, remove, handleDateChange, submit
               submitQuery()
               focusCounter()
             }} 
-            style={{ letterSpacing: ".5px", textTransform: "uppercase" }}
+            style={{ letterSpacing: ".5px", textTransform: "uppercase", background: "var(--highlight)" }}
           >
             Search Articles
           </Button>
