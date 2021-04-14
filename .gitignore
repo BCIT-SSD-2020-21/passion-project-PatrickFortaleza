@@ -9,3 +9,4 @@ __pycache__/
 geckodriver.log
 */geckodriver.log
 site-packages/
+lib/
