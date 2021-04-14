@@ -30,6 +30,7 @@
   overflow-y: auto;
   border: 1px solid var(--lightsecondary);
   background-color: #f7f7f7;
+  align-content: flex-start;
 
   &::-webkit-scrollbar {
     width: 15px;
