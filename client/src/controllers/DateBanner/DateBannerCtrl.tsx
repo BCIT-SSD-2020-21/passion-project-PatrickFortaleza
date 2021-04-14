@@ -3,11 +3,15 @@ import DateBanner from "../../components/DateBanner/index";
 
 interface Props {
   watchDate: (date: string) => void;
+  focusCounter: () => void;
+  focusCount: number
 }
 
-export default function DateBannerCtrl({watchDate}: Props) {
+export default function DateBannerCtrl({watchDate, focusCounter, focusCount}: Props) {
   const [date, setDate] = useState(new Date());
   const [formattedDate, setFormattedDate] = useState('')
+  const [fade, setFade] = useState(false)
+  const [remove, setRemove] = useState(false)
 
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedDate = `${event}`
@@ -28,9 +32,27 @@ export default function DateBannerCtrl({watchDate}: Props) {
     watchDate(formattedDate)
   }
 
+  const removeElements = () => {
+    setFade(true)
+    setTimeout(() => {
+      setRemove(true)
+    }, 550)
+  }
+
   useEffect(() => {
     formatDate()
   }, [date])
 
-  return <DateBanner date={date} handleDateChange={handleDateChange} submitQuery={submitQuery}/>;
+  useEffect(() => {
+    if(focusCount > 0) removeElements()
+  }, [focusCount])
+
+  return <DateBanner 
+            date={date} 
+            handleDateChange={handleDateChange} 
+            submitQuery={submitQuery} 
+            focusCounter={() => focusCounter()}
+            fade={fade}
+            remove={remove}
+          />;
 }
