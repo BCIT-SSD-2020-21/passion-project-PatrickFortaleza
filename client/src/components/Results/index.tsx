@@ -1,10 +1,8 @@
-import React from 'react'
-import { Container, Loader } from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 import FilterSidebarCtrl from "../../controllers/FilterSidebar/FilterSidebarCtrl"
-import ArticleCtrl from "../../controllers/Article/ArticleCtrl"
+import Articles from "../Articles/index"
 import { Article } from "../../models/article"
-import NotFound from "../NotFound/index"
-import Welcome from "../Welcome/index"
+
 
 interface Props {
   loading: boolean
@@ -13,51 +11,41 @@ interface Props {
   syncSortOrder: (order: string) => void
   date: string
   focused: boolean
+  animatedIn: boolean
+  scrollTop: any
+  sidebarMobile: boolean
 }
 
-export default function Results({loading, articles, date, focused, syncVendorFilter, syncSortOrder}: Props) {
+export default function Results({
+        loading, 
+        articles, 
+        date, 
+        focused, 
+        animatedIn, 
+        scrollTop,
+        sidebarMobile, 
+        syncVendorFilter, 
+        syncSortOrder
+  }: Props) {
   return (
     <div style={{height: "100%", marginTop: 20, overflow: "hidden"}}>
       <Container style={{height: "100%"}}>
-        <div style={style.flex}>
+        <div className="results__container" style={style.flex}>
 
-          <FilterSidebarCtrl 
+          <FilterSidebarCtrl
+            sidebarMobile={sidebarMobile} 
             syncVendorFilter={(filters: Array<string>) => syncVendorFilter(filters)}
             syncSortOrder={(order: string) => syncSortOrder(order)}
           />
-          <div style={{width: "100%", position: "relative"}}>
-            <div className="result__header">
-              <div>
-                <h3 style={{display: "flex"}}>Top Headlines:            
-                  {
-                    date && 
-                    <span className="date">{date}</span>
-                  }
-                </h3>
-              </div>
-              <div>
-                <div className="counter"><span>{articles.length}</span></div>
-              </div>
-            </div>
-            <section className="article__flex" style={{...style.main, position: "relative"}}>
-              {
-                loading &&
-                <div style={{position: "absolute", left: 0, top: 0, width: "100%", height: "100%", background: "#f7f7f7"}}>
-                  <Loader size='large' style={{position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" }}active inline='centered'/>
-                </div>
-              }
-              {
-                !loading && articles && articles.length > 0 ?
-                articles.map((article, index) => {
-                  return (
-                    <ArticleCtrl key={index} article={article}/>
-                  )
-                })
-                :
-                focused ? <NotFound/> : <Welcome />
-              }
-            </section>
-          </div>
+
+          <Articles 
+            loading={loading}
+            articles={articles}
+            date={date}
+            focused={focused}
+            animatedIn={animatedIn}
+            scrollTop={scrollTop}
+          />
 
         </div>
       </Container>

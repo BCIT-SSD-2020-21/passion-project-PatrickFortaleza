@@ -5,9 +5,17 @@ import { Site } from "../../models/site"
 interface Props {
   syncVendorFilter: (filters: Array<string>) => void
   syncSortOrder: (order: string) => void
+  sidebarMobile: boolean
+}
+const colorModel = {
+  "CNN": "#cc0000",
+  "Fox News": "#003366",
+  "CBS News": "#000000",
+  "New York Post": "#cc3333",
+  "NBC News": "#f37021"
 }
 
-export default function FilterSidebarCtrl({syncVendorFilter, syncSortOrder}:Props) {
+export default function FilterSidebarCtrl({sidebarMobile, syncVendorFilter, syncSortOrder}:Props) {
   const [checkboxModel, setCheckboxModel] = useState({
     "CNN": true,
     "Fox News": true,
@@ -19,6 +27,7 @@ export default function FilterSidebarCtrl({syncVendorFilter, syncSortOrder}:Prop
     alphabetically: false,
     news_vendor: true
   })
+  const [expand, setExpand] = useState(false)
 
   const changeFilters = (name: string) => {
     const updatedCheckboxModel = {...checkboxModel}
@@ -53,6 +62,14 @@ export default function FilterSidebarCtrl({syncVendorFilter, syncSortOrder}:Prop
     syncSortOrder(order)
   }
 
+  const expandSidebar = () => {
+    setExpand(true)
+  }
+
+  const collapseSidebar = () => {
+    setExpand(false)
+  }
+
   useEffect(() => {
     evaluateSyncFilter()
   }, [checkboxModel])
@@ -65,9 +82,14 @@ export default function FilterSidebarCtrl({syncVendorFilter, syncSortOrder}:Prop
     <FilterSidebar 
       sites={sites} 
       checkboxModel={checkboxModel} 
-      sortModel={sortModel} 
+      sortModel={sortModel}
+      colorModel={colorModel}
+      sidebarMobile={sidebarMobile} 
       changeFilters={changeFilters} 
       changeSort={changeSort}
+      collapseSidebar={collapseSidebar}
+      expandSidebar={expandSidebar}
+      sidebar={expand}
     />
   )
 }

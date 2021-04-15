@@ -4,6 +4,8 @@ import {Article as ArticleType} from "../../models/article"
 
 interface Props {
   article: ArticleType
+  index_: number
+  animatedIn: boolean
 }
 
 const colorModel = {
@@ -14,9 +16,11 @@ const colorModel = {
   "NBC News": "#f37021"
 }
 
-export default function ArticleCtrl({article}: Props) {
+export default function ArticleCtrl({article, index_, animatedIn}: Props) {
   const [formattedDate, setFormattedDate] = useState('')
   const [formattedURL, setFormmattedURL] = useState('')
+  const [formattedHeadline, setFormattedHeadline] = useState('')
+  const [concatHeadline, setConcatHeadline] = useState(false)
 
   const formatDate = () => {
     let d = new Date(article.date),
@@ -45,12 +49,34 @@ export default function ArticleCtrl({article}: Props) {
     setFormmattedURL(url)
   }
 
+  const formatHeadline = () => {
+    let headline: string = article.headline,
+        headlineLength: number = headline.length;
+      
+    if(headlineLength > 80){
+      headline = `${headline.substr(0, 80)} [...]`
+      setConcatHeadline(true)
+    }
+
+    setFormattedHeadline(headline)
+  }
+
   useEffect(() => {
     formatDate()
     formatURL()
+    formatHeadline()
   }, [article])
 
   return (
-    <Article article={article} formattedDate={formattedDate} formattedURL={formattedURL} colorModel={colorModel} />
+    <Article 
+      article={article} 
+      formattedDate={formattedDate} 
+      formattedURL={formattedURL}
+      formattedHeadline={formattedHeadline} 
+      colorModel={colorModel} 
+      concatHeadline={concatHeadline}
+      index={index_}
+      animatedIn={animatedIn}
+    />
   )
 }

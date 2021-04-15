@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef, Ref, RefObject } from 'react'
 import Results from "../../components/Results"
 import { queryNews } from "../../network/index"
 import { Article } from "../../models/article"
@@ -8,8 +8,14 @@ interface Props {
   focusCount: number
 }
 
+const getWindowWidth = () => {
+  const { innerWidth: width } = window
+  return width
+}
+
 export default function ResultsCtrl({date, focusCount} :Props) {
   const [loading, setLoading] = useState(false)
+  const [animatedIn, setAnimatedIn] = useState(false)
   // For storing the query in memory
   const [articles, setArticles] = useState([])
   // For serving up a filtered -or- sorted list.
@@ -17,10 +23,28 @@ export default function ResultsCtrl({date, focusCount} :Props) {
   const [vendorFilter, setVendorFilter] = useState([])
   const [sortOrder, setSortOrder] = useState('')
   const [focused, setFocused] = useState(false)
+  const [screenWidth, setScreenWidth] = useState(0)
+  const [sidebarMobile, setSidebarMobile] = useState(false)
+  const scrollTop = (useRef() as any);
+
+  const handleResize = () => {
+    setScreenWidth(getWindowWidth)
+  }
+
+  const evaluateScreenWidth = () => {
+    if(screenWidth < 900) return setSidebarMobile(true)
+    return setSidebarMobile(false)
+  }
+
+  const scrollToTop = () => {
+    scrollTop.current.scrollIntoView({behavior: "smooth"})
+  }
 
   const getNews = async () => {
     if(!date) return
+    setAnimatedIn(false)
     setLoading(true)
+    await setArticles_([])
 
     const result = await queryNews(date)
     setLoading(false)
@@ -28,6 +52,10 @@ export default function ResultsCtrl({date, focusCount} :Props) {
     if(result.error) return setArticles([])
     setArticles(result.data.articles)
     setArticles_(result.data.articles)
+    setTimeout(() => {
+      setAnimatedIn(true)
+      scrollToTop()
+    }, 150)
   }
 
   const syncVendorFilter = (filters: Array<string>) => {
@@ -70,13 +98,27 @@ export default function ResultsCtrl({date, focusCount} :Props) {
     }
   }
 
-  const sortFilterArray = () => {
+  const sortFilterArray = async () => {
+    setAnimatedIn(false)
     setLoading(true)
+    await setArticles_([])
     const filtered = filterArticles(articles)
     const sorted = sortArticles((filtered as Array<Article>))
     setArticles_((sorted as any))
     setLoading(false)
+    setTimeout(() => {
+      setAnimatedIn(true)
+      scrollToTop()
+    }, 150)
+
   }
+
+  useEffect(() => {
+    handleResize()
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [])
 
   useEffect(() => {
     getNews()
@@ -86,7 +128,6 @@ export default function ResultsCtrl({date, focusCount} :Props) {
     sortFilterArray()
   }, [articles])
 
-
   useEffect(() => {
     sortFilterArray()
   }, [sortOrder, vendorFilter])
@@ -94,8 +135,22 @@ export default function ResultsCtrl({date, focusCount} :Props) {
   useEffect(() => {
     if(focusCount > 0) setFocused(true)
   }, [focusCount])
+
+  useEffect(() => {
+    evaluateScreenWidth()
+  }, [screenWidth])
   
   return (
-    <Results loading={loading} articles={articles_} focused={focused} syncVendorFilter={syncVendorFilter} syncSortOrder={syncSortOrder} date={date}/>
+    <Results 
+      loading={loading} 
+      articles={articles_} 
+      focused={focused} 
+      syncVendorFilter={syncVendorFilter} 
+      syncSortOrder={syncSortOrder} 
+      date={date}
+      animatedIn={animatedIn}
+      scrollTop={scrollTop}
+      sidebarMobile={sidebarMobile}
+    />
   )
 }

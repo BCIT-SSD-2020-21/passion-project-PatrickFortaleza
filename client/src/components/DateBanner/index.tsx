@@ -1,7 +1,8 @@
 import React, { ChangeEvent } from "react";
-import { Container, Button } from "semantic-ui-react";
+import { Button, Icon } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Prism } from "../../background/Prism"
 
 interface Props {
   date: Date
@@ -10,9 +11,10 @@ interface Props {
   focusCounter: () => void;
   fade: boolean
   remove: boolean
+  screenWidth: number
 }
 
-export default function DateBanner({date, fade, remove, handleDateChange, submitQuery, focusCounter}: Props) {
+export default function DateBanner({date, fade, remove, screenWidth, handleDateChange, submitQuery, focusCounter}: Props) {
   return (
     <div
       className={remove ? "banner__container fade" : "banner__container"}
@@ -21,13 +23,15 @@ export default function DateBanner({date, fade, remove, handleDateChange, submit
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        // backgroundImage: "url(/assets/images/background.png)",
         backgroundSize: "cover",
         backgroundPosition: "center center",
         transition: "all .2s ease-in-out"
       }}
     >
-      <div>
+      <div className="prism__background">
+        <Prism />
+      </div>
+      <div style={{zIndex: 500, padding: "0px 20px", width: "100%"}}>
         {
           !remove &&
           <>
@@ -50,28 +54,34 @@ export default function DateBanner({date, fade, remove, handleDateChange, submit
             </p>
           </>
         }
-        <div style={{ display: "flex" }} >
-          {/* <DatePicker selected={date} onSelect={(event: ChangeEvent<HTMLInputElement>) => handleDateChange(event)}/> */}
+        <div className="datepicker__input" style={{ display: "flex", justifyContent: "space-between", maxWidth: "700px", minWidth: "300px", margin: "auto" }} >
           <DatePicker
             selected={date} 
             onChange={(event:ChangeEvent<HTMLInputElement>)  => handleDateChange(event)}
             maxDate={new Date()} 
           />           
-          <Button 
+          <Button
+            className="date__button" 
             onClick={() => { 
               submitQuery()
               focusCounter()
             }} 
             style={{ letterSpacing: ".5px", textTransform: "uppercase", background: "var(--highlight)" }}
           >
-            Search Articles
+            {
+              screenWidth < 530 && screenWidth > 320 ?
+                <Icon style={{fontSize: 21, marginRight: 0, lineHeight: "20px", color: "white"}} name="search" />
+              :
+                "Search Articles"
+            }
+            
           </Button>
         </div>
         {
           !remove &&
             <p
               className={fade ? "date__banner fade" : "date__banner"} 
-              style={{ textAlign: "left", fontSize: 12, padding: "3px 0" }}
+              style={{ fontSize: 12, padding: "3px 0px", textAlign: "center" }}
             >
               Data sets available from April 11, 2021 and onward.
             </p>

@@ -23,6 +23,15 @@ form.form__checkboxes .box__row {
   border-bottom: 1px solid #eee;
   filter: grayscale(1.5);
   transition: 0.2s ease-in-out;
+  position: relative;
+
+  .box__accent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+  }
 
   & .box__label {
     opacity: 0.25;
