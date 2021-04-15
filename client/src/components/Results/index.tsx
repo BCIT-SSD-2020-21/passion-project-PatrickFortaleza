@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {LegacyRef, Ref, RefObject} from 'react'
 import { Container, Loader } from "semantic-ui-react";
 import FilterSidebarCtrl from "../../controllers/FilterSidebar/FilterSidebarCtrl"
 import ArticleCtrl from "../../controllers/Article/ArticleCtrl"
@@ -13,9 +13,11 @@ interface Props {
   syncSortOrder: (order: string) => void
   date: string
   focused: boolean
+  animatedIn: boolean
+  scrollTop: any
 }
 
-export default function Results({loading, articles, date, focused, syncVendorFilter, syncSortOrder}: Props) {
+export default function Results({loading, articles, date, focused, animatedIn, scrollTop, syncVendorFilter, syncSortOrder}: Props) {
   return (
     <div style={{height: "100%", marginTop: 20, overflow: "hidden"}}>
       <Container style={{height: "100%"}}>
@@ -40,6 +42,7 @@ export default function Results({loading, articles, date, focused, syncVendorFil
               </div>
             </div>
             <section className="article__flex" style={{...style.main, position: "relative"}}>
+              <div style={{marginTop: -43}} ref={(scrollTop as any)}></div>
               {
                 loading &&
                 <div style={{position: "absolute", left: 0, top: 0, width: "100%", height: "100%", background: "#f7f7f7"}}>
@@ -50,7 +53,7 @@ export default function Results({loading, articles, date, focused, syncVendorFil
                 !loading && articles && articles.length > 0 ?
                 articles.map((article, index) => {
                   return (
-                    <ArticleCtrl key={index} article={article}/>
+                    <ArticleCtrl key={index} index_={index} article={article} animatedIn={animatedIn}/>
                   )
                 })
                 :

@@ -15,7 +15,7 @@ export default function Header() {
       <Menu
         fixed="top"
         style={{
-          borderBottom: "1px solid var(--lightborder)",
+          borderBottom: "3px solid var(--highlight)",
           boxShadow: "var(--shadow)",
         }}
       >
@@ -25,6 +25,9 @@ export default function Header() {
               <Icon style={{ marginRight: 0 }} name="cube" /> &nbsp; PYNEWS
             </Menu.Item>
           </div>
+          <Menu.Item header>
+              <p style={{fontWeight: "normal"}}>a python-built news aggregation application.</p>
+            </Menu.Item>
         </Container>
       </Menu>
     </header>

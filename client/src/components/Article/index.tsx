@@ -5,15 +5,41 @@ interface Props {
   article: ArticleType,
   formattedDate: string,
   formattedURL: string,
-  colorModel: object | any
+  colorModel: object | any,
+  formattedHeadline: string,
+  concatHeadline: boolean,
+  index: number,
+  animatedIn: boolean
 }
 
-export default function Article({article, formattedDate, colorModel, formattedURL}: Props) {
+export default function Article({
+  article, 
+  formattedDate, 
+  colorModel, 
+  formattedURL, 
+  formattedHeadline, 
+  concatHeadline, 
+  index,
+  animatedIn
+}: Props) {
   return (
     <a href={formattedURL} target="blank_" style={{display: "block", alignSelf: "flex-start"}} className="article__wrap">
-      <article className="article article__container">
+      <article 
+        className="article article__container"
+        style={{
+          opacity: animatedIn ? 1 : 0,
+          transform: animatedIn ? "translateY(0px)" : "translateY(10px)",
+          transition: `all 0.2s ease-in-out ${(index * 0.1) + 0.25}s`
+        }}
+      >
         <span className="article__accent" style={{background: `${colorModel[`${article.site[0].name}`]}`}}></span>
-        <h4 style={{color: "#353535"}}>{article.headline}</h4>
+        <h4 className="article__headline" style={{color: "#353535"}}>
+          {
+            concatHeadline &&  
+            <span className="article__extend">{article.headline}</span>
+          }
+          {formattedHeadline}
+        </h4>
 
         <div style={{display: "flex", justifyContent: "space-between", marginTop: 14}}>
           <label style={{display: "flex", fontSize: 12, fontWeight: "bold", color: "#353535"}}>
