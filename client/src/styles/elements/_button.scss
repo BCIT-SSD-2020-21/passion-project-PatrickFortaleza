@@ -1,5 +1,5 @@
-* button,
-* button.ui.button {
+* main button,
+* main button.ui.button {
   transition: 0.2s ease-in-out;
   background: var(--highlight);
   color: white !important;
@@ -7,8 +7,8 @@
   padding: 15px 35px;
 }
 
-* button.ui.button:hover,
-* button.ui.button:active {
+* main button.ui.button:hover,
+* main button.ui.button:active {
   background: var(--highlight);
   color: white;
   filter: brightness(1.25);
