@@ -10,6 +10,7 @@ export default function Header() {
         left: "0",
         width: "100%",
         boxShadow: "var(--shadow)",
+        zIndex: 500000,
       }}
     >
       <Menu

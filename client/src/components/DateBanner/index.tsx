@@ -2,6 +2,7 @@ import React, { ChangeEvent } from "react";
 import { Container, Button } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Prism } from "../../background/Prism"
 
 interface Props {
   date: Date
@@ -27,7 +28,10 @@ export default function DateBanner({date, fade, remove, handleDateChange, submit
         transition: "all .2s ease-in-out"
       }}
     >
-      <div>
+      <div className="prism__background">
+        <Prism />
+      </div>
+      <div style={{zIndex: 500}}>
         {
           !remove &&
           <>

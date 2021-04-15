@@ -63,8 +63,26 @@
 .date__banner {
   transition: 0.5s ease-in-out;
   opacity: 1;
+  position: relative;
 
   &.fade {
     opacity: 0;
+  }
+}
+.banner__container {
+  position: relative;
+  border-bottom: 1px solid var(#ccc);
+}
+.prism__background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+  svg {
+    height: 100%;
+    opacity: 0.55;
+    z-index: -1;
   }
 }

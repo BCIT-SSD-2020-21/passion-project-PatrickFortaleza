@@ -8,7 +8,7 @@
 }
 
 * button.ui.button:hover,
-* button.ui.button:focus {
+* button.ui.button:active {
   background: var(--highlight);
   color: white;
   filter: brightness(1.25);
