@@ -1,3 +1,7 @@
+.results__container {
+  position: relative;
+}
+
 .result__header {
   padding: 7px 14px;
   border: 1px solid var(--lightsecondary);
@@ -43,4 +47,36 @@
       padding: 5px;
     }
   }
+}
+
+aside.sidebar {
+  position: relative;
+  background: white;
+  transition: 0.2s ease-in-out;
+}
+
+aside.sidebar.mobile {
+  position: absolute;
+  top: 0;
+  right: calc(100% - 10px);
+  height: 100%;
+  z-index: 5000;
+
+  &.active {
+    right: calc(100% - 260px);
+  }
+}
+
+.sidebar__tab {
+  cursor: pointer;
+  position: absolute;
+  top: 30px;
+  left: calc(100% + 1px);
+  background: white;
+  padding: 10px;
+  z-index: 8000;
+  border: 1px solid var(--lightsecondary);
+  margin-left: -1px;
+  border-right: 3px solid var(--highlight);
+  box-shadow: var(--shadow);
 }

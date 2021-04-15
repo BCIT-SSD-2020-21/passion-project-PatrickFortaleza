@@ -8,6 +8,11 @@ interface Props {
   focusCount: number
 }
 
+const getWindowWidth = () => {
+  const { innerWidth: width } = window
+  return width
+}
+
 export default function ResultsCtrl({date, focusCount} :Props) {
   const [loading, setLoading] = useState(false)
   const [animatedIn, setAnimatedIn] = useState(false)
@@ -18,7 +23,18 @@ export default function ResultsCtrl({date, focusCount} :Props) {
   const [vendorFilter, setVendorFilter] = useState([])
   const [sortOrder, setSortOrder] = useState('')
   const [focused, setFocused] = useState(false)
+  const [screenWidth, setScreenWidth] = useState(0)
+  const [sidebarMobile, setSidebarMobile] = useState(false)
   const scrollTop = (useRef() as any);
+
+  const handleResize = () => {
+    setScreenWidth(getWindowWidth)
+  }
+
+  const evaluateScreenWidth = () => {
+    if(screenWidth < 900) return setSidebarMobile(true)
+    return setSidebarMobile(false)
+  }
 
   const scrollToTop = () => {
     scrollTop.current.scrollIntoView({behavior: "smooth"})
@@ -98,13 +114,19 @@ export default function ResultsCtrl({date, focusCount} :Props) {
   }
 
   useEffect(() => {
+    handleResize()
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [])
+
+  useEffect(() => {
     getNews()
   }, [date])
 
   useEffect(() => {
     sortFilterArray()
   }, [articles])
-
 
   useEffect(() => {
     sortFilterArray()
@@ -113,6 +135,10 @@ export default function ResultsCtrl({date, focusCount} :Props) {
   useEffect(() => {
     if(focusCount > 0) setFocused(true)
   }, [focusCount])
+
+  useEffect(() => {
+    evaluateScreenWidth()
+  }, [screenWidth])
   
   return (
     <Results 
@@ -124,6 +150,7 @@ export default function ResultsCtrl({date, focusCount} :Props) {
       date={date}
       animatedIn={animatedIn}
       scrollTop={scrollTop}
+      sidebarMobile={sidebarMobile}
     />
   )
 }

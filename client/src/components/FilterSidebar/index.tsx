@@ -8,12 +8,36 @@ interface Props {
   checkboxModel: Object | any,
   changeFilters: (name: string) => void,
   changeSort: (name: string) => void,
+  sidebarMobile: boolean,
   colorModel: Object | any
+  collapseSidebar: () => void,
+  expandSidebar: () => void
+  sidebar: boolean
 }
 
-export default function FilterSidebar({sites, checkboxModel, sortModel, colorModel, changeFilters, changeSort}:Props) {
+export default function FilterSidebar({
+        sites, 
+        checkboxModel, 
+        sortModel, 
+        colorModel, 
+        sidebarMobile,
+        sidebar, 
+        changeFilters, 
+        changeSort,
+        collapseSidebar,
+        expandSidebar
+  }:Props) {
   return (
-    <aside style={style.sidebar}>
+    <aside className={sidebarMobile ? sidebar ? "sidebar mobile active" : "sidebar mobile" : "sidebar" }style={style.sidebar}>
+    {
+      sidebarMobile &&
+      <button 
+        className="sidebar__tab"
+        onClick={sidebarMobile && sidebar ? () => collapseSidebar() :  () => expandSidebar()}
+      >
+        <Icon style={{ marginRight: 0, fontSize: 17, color: "#333" }} name={ sidebar ? "caret left" :"sliders horizontal"} />
+      </button>
+    }
     <div style={style.sidebarHead}>
       <span style={{display: "flex", justifyContent: "space-between"}}>
         <h3 style={{margin: 0, color: "#333"}}>Filters</h3>

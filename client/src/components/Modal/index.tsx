@@ -12,6 +12,7 @@ export default function Modal({children, hideModal}: Props) {
           position: "fixed", top: 0, left: 0, 
           width: "100vw", height: "100vh", 
           background: "rgba(0,0,0, 0.85)", backdropFilter: "blur(5px)"}}
+          onClick={() => hideModal()}
     >
       <div className="modal__wrap">
         <div className="modal__container">
