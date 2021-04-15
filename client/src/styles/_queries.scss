@@ -1,0 +1,39 @@
+@media screen and (min-width: 530px) {
+  .date__button {
+    min-width: 200px !important;
+  }
+
+  .react-datepicker-wrapper {
+    width: 100% !important;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 530px) {
+  .header__info {
+    display: none;
+  }
+
+  .react-datepicker-wrapper {
+    display: block !important;
+  }
+
+  .date__button {
+    font-size: 12px !important;
+    z-index: 500;
+  }
+
+  .datepicker__input {
+    max-width: unset !important;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 450px) {
+  .react-datepicker-wrapper .react-datepicker__input-container input {
+    min-width: 70px !important;
+    width: 100%;
+  }
+
+  .react-datepicker-wrapper {
+    width: 100% !important;
+  }
+}

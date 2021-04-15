@@ -7,11 +7,21 @@ interface Props {
   focusCount: number
 }
 
+const getWindowWidth = () => {
+  const { innerWidth: width } = window
+  return width
+}
+
 export default function DateBannerCtrl({watchDate, focusCounter, focusCount}: Props) {
   const [date, setDate] = useState(new Date());
   const [formattedDate, setFormattedDate] = useState('')
   const [fade, setFade] = useState(false)
   const [remove, setRemove] = useState(false)
+  const [screenWidth, setScreenWidth] = useState(0)
+
+  const handleResize = () => {
+    setScreenWidth(getWindowWidth)
+  }
 
   const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedDate = `${event}`
@@ -47,6 +57,13 @@ export default function DateBannerCtrl({watchDate, focusCounter, focusCount}: Pr
     if(focusCount > 0) removeElements()
   }, [focusCount])
 
+  useEffect(() => {
+    handleResize()
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [])
+
   return <DateBanner 
             date={date} 
             handleDateChange={handleDateChange} 
@@ -54,5 +71,6 @@ export default function DateBannerCtrl({watchDate, focusCounter, focusCount}: Pr
             focusCounter={() => focusCounter()}
             fade={fade}
             remove={remove}
+            screenWidth={screenWidth}
           />;
 }

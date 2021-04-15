@@ -34,9 +34,11 @@ export default function Header({modalActive, toggleModal, hideModal}: Props) {
               <Menu.Item header>
                 <Icon style={{ marginRight: 0 }} name="cube" /> &nbsp; PYNEWS
               </Menu.Item>
-              <Menu.Item header>
-                  <p style={{fontWeight: "normal"}}>a python-built news aggregation application.</p>
-              </Menu.Item>
+              <div className="header__info">
+                <Menu.Item>
+                    <p style={{fontWeight: "normal"}}>a python-built news aggregation application.</p>
+                </Menu.Item>
+              </div>
             </div>
             <div>
               <Menu.Item style={{height: "100%", borderLeft: "1px solid rgba(34,36,38,.1)"}}>
