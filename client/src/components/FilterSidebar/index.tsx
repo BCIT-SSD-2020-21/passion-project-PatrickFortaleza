@@ -7,10 +7,11 @@ interface Props {
   sortModel: Object | any,
   checkboxModel: Object | any,
   changeFilters: (name: string) => void,
-  changeSort: (name: string) => void
+  changeSort: (name: string) => void,
+  colorModel: Object | any
 }
 
-export default function FilterSidebar({sites, checkboxModel, sortModel, changeFilters, changeSort}:Props) {
+export default function FilterSidebar({sites, checkboxModel, sortModel, colorModel, changeFilters, changeSort}:Props) {
   return (
     <aside style={style.sidebar}>
     <div style={style.sidebarHead}>
@@ -30,6 +31,7 @@ export default function FilterSidebar({sites, checkboxModel, sortModel, changeFi
             const siteName = site.name
             return (
             <div className={checkboxModel[site.name] === true ? "box__row active" : "box__row"} key={index}>
+              <span className="box__accent" style={{background: colorModel[site.name]}}></span>
               <div className="box__label" style={{display: "flex"}}>
                 <div className="thumbnail__box">
                   <img className="thumbnail__img" src={site.img} alt="thumbnail" />

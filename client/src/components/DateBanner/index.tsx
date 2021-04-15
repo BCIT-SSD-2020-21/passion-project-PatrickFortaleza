@@ -61,7 +61,8 @@ export default function DateBanner({date, fade, remove, handleDateChange, submit
             onChange={(event:ChangeEvent<HTMLInputElement>)  => handleDateChange(event)}
             maxDate={new Date()} 
           />           
-          <Button 
+          <Button
+            className="date__button" 
             onClick={() => { 
               submitQuery()
               focusCounter()

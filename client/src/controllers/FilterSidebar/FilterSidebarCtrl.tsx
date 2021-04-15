@@ -6,6 +6,13 @@ interface Props {
   syncVendorFilter: (filters: Array<string>) => void
   syncSortOrder: (order: string) => void
 }
+const colorModel = {
+  "CNN": "#cc0000",
+  "Fox News": "#003366",
+  "CBS News": "#000000",
+  "New York Post": "#cc3333",
+  "NBC News": "#f37021"
+}
 
 export default function FilterSidebarCtrl({syncVendorFilter, syncSortOrder}:Props) {
   const [checkboxModel, setCheckboxModel] = useState({
@@ -65,7 +72,8 @@ export default function FilterSidebarCtrl({syncVendorFilter, syncSortOrder}:Prop
     <FilterSidebar 
       sites={sites} 
       checkboxModel={checkboxModel} 
-      sortModel={sortModel} 
+      sortModel={sortModel}
+      colorModel={colorModel} 
       changeFilters={changeFilters} 
       changeSort={changeSort}
     />

@@ -2,7 +2,7 @@
 * button.ui.button {
   transition: 0.2s ease-in-out;
   background: var(--highlight);
-  color: white;
+  color: white !important;
   border-radius: 0 !important;
   padding: 15px 35px;
 }
