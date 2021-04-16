@@ -52,13 +52,13 @@
 aside.sidebar {
   position: relative;
   background: white;
-  transition: 0.2s ease-in-out;
+  transition: 0.5s ease-in-out;
 }
 
 aside.sidebar.mobile {
   position: absolute;
   top: 0;
-  right: calc(100% - 10px);
+  right: calc(100% + 15px);
   height: 100%;
   z-index: 5000;
   box-shadow: var(--shadow);
@@ -71,7 +71,7 @@ aside.sidebar.mobile {
 .sidebar__tab {
   cursor: pointer;
   position: absolute;
-  top: 150px;
+  bottom: 50px;
   left: calc(100% + 1px);
   background: white;
   padding: 10px;

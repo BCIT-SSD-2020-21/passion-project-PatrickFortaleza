@@ -32,7 +32,7 @@ export default function ResultsCtrl({date, focusCount} :Props) {
   }
 
   const evaluateScreenWidth = () => {
-    if(screenWidth < 900) return setSidebarMobile(true)
+    if(screenWidth < 1000) return setSidebarMobile(true)
     return setSidebarMobile(false)
   }
 
