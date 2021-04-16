@@ -37,9 +37,21 @@ export default function FilterSidebar({
         <Icon style={{ marginRight: 0, fontSize: 17, color: "#333" }} name={ sidebar ? "caret left" :"sliders horizontal"} />
       </button>
     }
-    <div style={style.sidebarHead}>
+    <div
+      onClick={sidebarMobile && sidebar ? () => collapseSidebar() :  () => expandSidebar()}
+      style={{...style.sidebarHead, cursor: "pointer"}}
+    >
       <span style={{display: "flex", justifyContent: "space-between"}}>
-        <h3 style={{margin: 0, color: "#333"}}>Filters</h3>
+        <h3 style={{margin: 0, color: "#333"}}>
+            Filters &nbsp;
+            {
+              sidebarMobile &&
+              sidebar ?
+                <Icon name="caret square down outline"/>
+              :
+                <Icon name="caret square up outline"/>
+            } 
+        </h3>
         <Icon style={{ marginRight: 0, fontSize: 17, color: "#333" }} name="sliders horizontal" />
       </span>
     </div>

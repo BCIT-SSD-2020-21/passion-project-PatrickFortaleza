@@ -54,7 +54,7 @@ export default function ResultsCtrl({date, focusCount} :Props) {
     setArticles_(result.data.articles)
     setTimeout(() => {
       setAnimatedIn(true)
-      scrollToTop()
+      if(screenWidth > 1000) scrollToTop()
     }, 150)
   }
 
@@ -108,7 +108,7 @@ export default function ResultsCtrl({date, focusCount} :Props) {
     setLoading(false)
     setTimeout(() => {
       setAnimatedIn(true)
-      scrollToTop()
+      if(screenWidth > 1000) scrollToTop()
     }, 150)
 
   }

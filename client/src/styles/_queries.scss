@@ -33,6 +33,12 @@
   }
 }
 
+/* 
+  ========================
+  MOBILE BROWSERS
+  ========================
+*/
+
 @media screen and (min-width: 320px) and (max-width: 470px) {
   .react-datepicker-wrapper .react-datepicker__input-container input {
     min-width: 70px !important;
@@ -50,7 +56,8 @@
 
   .banner__container {
     max-height: auto;
-    padding: 0;
+    height: auto;
+    padding: 10px;
   }
 
   .banner__container.fade {
@@ -66,5 +73,24 @@
 
   .ui button.date__button {
     margin: 0 !important;
+  }
+
+  p.date__banner {
+    margin-bottom: 7px !important;
+  }
+
+  .results__container {
+    position: unset !important;
+  }
+
+  aside.sidebar.mobile {
+    left: 0;
+    width: 100%;
+    right: unset;
+    top: calc(100% - 40px);
+  }
+
+  aside.sidebar.mobile.active {
+    top: calc(100% - 500px);
   }
 }
