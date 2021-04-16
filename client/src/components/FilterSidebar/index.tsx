@@ -1,5 +1,4 @@
-import React, { ChangeEvent, FormEvent } from 'react'
-import { Container, Menu, Icon, Checkbox } from "semantic-ui-react";
+import { Icon, Checkbox } from "semantic-ui-react";
 import { Site } from "../../models/site"
 
 interface Props {

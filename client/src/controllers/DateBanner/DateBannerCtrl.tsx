@@ -51,10 +51,12 @@ export default function DateBannerCtrl({watchDate, focusCounter, focusCount}: Pr
 
   useEffect(() => {
     formatDate()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date])
 
   useEffect(() => {
     if(focusCount > 0) removeElements()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusCount])
 
   useEffect(() => {

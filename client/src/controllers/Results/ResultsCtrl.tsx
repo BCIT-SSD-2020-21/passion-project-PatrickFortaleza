@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, Ref, RefObject } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Results from "../../components/Results"
 import { queryNews } from "../../network/index"
 import { Article } from "../../models/article"
@@ -70,7 +70,7 @@ export default function ResultsCtrl({date, focusCount} :Props) {
     if(!array && (array as Array<string>).length < 1) return
     const filteredArray = [...articles].filter((article) => {
       if(!(vendorFilter as Array<string>).includes((article as Article).site[0].name)) return article
-      return
+      return null
     })
     
     return filteredArray
@@ -122,22 +122,27 @@ export default function ResultsCtrl({date, focusCount} :Props) {
 
   useEffect(() => {
     getNews()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date])
 
   useEffect(() => {
     sortFilterArray()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [articles])
 
   useEffect(() => {
     sortFilterArray()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortOrder, vendorFilter])
 
   useEffect(() => {
     if(focusCount > 0) setFocused(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusCount])
 
   useEffect(() => {
     evaluateScreenWidth()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [screenWidth])
   
   return (

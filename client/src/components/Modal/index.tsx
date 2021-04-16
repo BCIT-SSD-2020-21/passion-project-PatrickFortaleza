@@ -1,5 +1,4 @@
-import React from 'react'
-import { Container, Menu, Icon, Button } from "semantic-ui-react";
+import { Menu, Icon, Button } from "semantic-ui-react";
 
 interface Props {
   children: any
