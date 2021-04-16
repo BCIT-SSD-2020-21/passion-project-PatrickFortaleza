@@ -72,10 +72,12 @@ export default function FilterSidebarCtrl({sidebarMobile, syncVendorFilter, sync
 
   useEffect(() => {
     evaluateSyncFilter()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkboxModel])
 
   useEffect(() => {
     evaluateSyncSort()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortModel])
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Article from "../../components/Article/index"
 import {Article as ArticleType} from "../../models/article"
 
@@ -39,7 +39,6 @@ export default function ArticleCtrl({article, index_, animatedIn}: Props) {
 
     switch(hasHTTP){
       case true:
-        url = url
         break;
       case false:
         url = `${article.site[0].url.replace(/\/$/, "")}${article.article_url}`
@@ -65,6 +64,8 @@ export default function ArticleCtrl({article, index_, animatedIn}: Props) {
     formatDate()
     formatURL()
     formatHeadline()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [article])
 
   return (
