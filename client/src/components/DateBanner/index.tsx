@@ -31,7 +31,7 @@ export default function DateBanner({date, fade, remove, screenWidth, handleDateC
       <div className="prism__background">
         <Prism />
       </div>
-      <div style={{zIndex: 500, padding: "0px 20px", width: "100%"}}>
+      <div className="banner__wrapper" style={{zIndex: 500, padding: "0px 20px", width: "100%"}}>
         {
           !remove &&
           <>
