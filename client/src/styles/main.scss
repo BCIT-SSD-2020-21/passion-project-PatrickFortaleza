@@ -17,3 +17,13 @@
 # Media Queries
 --------------------------------------------------------------*/
 @import "./queries";
+
+.page {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  overflow: hidden;
+}
+
+main {
+  padding-bottom: 20px;
+}
