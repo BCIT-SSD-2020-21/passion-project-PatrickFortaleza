@@ -6,6 +6,7 @@ interface Props {
   article: ArticleType
   index_: number
   animatedIn: boolean
+  date: string
 }
 
 const colorModel = {
@@ -16,17 +17,17 @@ const colorModel = {
   "NBC News": "#f37021"
 }
 
-export default function ArticleCtrl({article, index_, animatedIn}: Props) {
+export default function ArticleCtrl({article, index_, animatedIn, date}: Props) {
   const [formattedDate, setFormattedDate] = useState('')
   const [formattedURL, setFormmattedURL] = useState('')
   const [formattedHeadline, setFormattedHeadline] = useState('')
   const [concatHeadline, setConcatHeadline] = useState(false)
 
   const formatDate = () => {
-    let d = new Date(article.date),
+    let d = new Date(date),
         month = d.toLocaleString('default', { month: 'long' }),
         year = d.getFullYear(),
-        day = (d.getDate() + 1).toString().padStart(2, "0");
+        day = (d.getDate() + 1).toString();
     
     const dateString = `${month} ${day}, ${year}`
     setFormattedDate(dateString)

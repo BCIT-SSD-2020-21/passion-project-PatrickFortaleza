@@ -41,7 +41,7 @@ export default function Articles({loading, articles, date, focused, animatedIn, 
         !loading && articles && articles.length > 0 ?
         articles.map((article, index) => {
           return (
-            <ArticleCtrl key={index} index_={index} article={article} animatedIn={animatedIn}/>
+            <ArticleCtrl key={index} index_={index} article={article} date={date} animatedIn={animatedIn}/>
           )
         })
         :

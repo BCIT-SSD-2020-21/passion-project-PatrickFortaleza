@@ -5,6 +5,8 @@ A news aggregation application that "scrapes" the front-page of selected news we
 
 The user may enter any given date of the year, and "compare" headlines and articles from that date.
 
+<a href="https://pynews.netlify.app/">https://pynews.netlify.app/</a>
+
 ## Requirements
 
 **Functional Requirements**
@@ -36,15 +38,17 @@ The user may enter any given date of the year, and "compare" headlines and artic
 - **Client:** React
 - **Database:** MongoDb
 - **Server:** Python + Flask
-- **Programmatic Scraper:** Python + BS4(Scrapy?)
+- **Scheduled Web Scraper:** Python + BS4
 
-**Hosting**
+**Deployment**
 
-- Client: netlify
+- Client: Netlify
 - Database: MongoDb cloud
-- Server: Heroku
+- Server (API): Heroku
+- Server (Scheduled Web Scraper): Ubuntu 18.04 VPS
 
-## Supporting Documents
+## Demo
 
-**Wireframe**
-<img src="./planning/PyNews.png" alt="wireframe" width="100%">
+### Desktop + Mobile
+
+<img width="70%" src="./planning/demo/pyNews__desktop.gif"><img width="29%" src="./planning/demo/pyNews__desktop.gif">
