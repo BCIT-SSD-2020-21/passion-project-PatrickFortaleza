@@ -51,4 +51,4 @@ The user may enter any given date of the year, and "compare" headlines and artic
 
 ### Desktop + Mobile
 
-<img width="70%" src="./planning/demo/pyNews__desktop.gif"><img width="29%" src="./planning/demo/pyNews__desktop.gif">
+<img width="70%" src="./planning/demo/pyNews__desktop.gif"><img width="29%" src="./planning/demo/pyNews__mobile.gif">
